@@ -1,0 +1,1811 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soft AI Activation Candidates</title>
+  <script src="https://cdn.jsdelivr.net/npm/lamejs@1.2.1/lame.min.js"></script>
+  <style>
+    :root {
+      color-scheme: light;
+      --page: #f7f8fb;
+      --surface: #ffffff;
+      --surface-soft: #f2f5fa;
+      --line: #e1e6ef;
+      --text: #141821;
+      --muted: #667085;
+      --faint: #98a2b3;
+      --blue: #2f7df6;
+      --shadow: 0 14px 34px rgba(20, 26, 36, 0.08);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--text);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(247, 248, 251, 0.96)),
+        radial-gradient(circle at 18% 12%, rgba(47, 125, 246, 0.14), transparent 30%),
+        radial-gradient(circle at 82% 18%, rgba(35, 185, 143, 0.12), transparent 28%),
+        var(--page);
+      font-family:
+        Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+    }
+
+    button {
+      border: 0;
+      font: inherit;
+    }
+
+    .app {
+      width: min(100%, 1180px);
+      margin: 0 auto;
+      padding: 28px clamp(16px, 4vw, 40px) 42px;
+    }
+
+    .topbar {
+      min-height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 780;
+      letter-spacing: 0;
+    }
+
+    .brand-mark {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 50% 50%, #fff 0 24%, transparent 25%),
+        conic-gradient(from 20deg, #2f7df6, #23b98f, #e7608b, #f59e0b, #2f7df6);
+      box-shadow: 0 0 22px rgba(47, 125, 246, 0.26);
+    }
+
+    .encoder-state {
+      min-height: 34px;
+      padding: 7px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      color: #475467;
+      background: rgba(255, 255, 255, 0.78);
+      font-size: 0.82rem;
+      font-weight: 650;
+    }
+
+    .hero {
+      padding: 62px 0 28px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 390px);
+      gap: clamp(28px, 6vw, 72px);
+      align-items: center;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: #4d6b9a;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 760px;
+      color: #3f4858;
+      font-size: clamp(2.45rem, 6vw, 5.1rem);
+      line-height: 1.02;
+      font-weight: 420;
+      letter-spacing: 0;
+    }
+
+    .hero-copy {
+      margin: 18px 0 0;
+      max-width: 630px;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.72;
+    }
+
+    .orb-panel {
+      min-height: 320px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      display: grid;
+      place-items: center;
+      background:
+        linear-gradient(135deg, rgba(47, 125, 246, 0.07), transparent 46%),
+        linear-gradient(315deg, rgba(35, 185, 143, 0.08), transparent 50%),
+        rgba(255, 255, 255, 0.86);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .orb {
+      width: min(64%, 220px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      position: relative;
+      background:
+        radial-gradient(circle at 50% 48%, #fff 0 17%, rgba(255, 255, 255, 0.86) 18% 25%, transparent 26%),
+        radial-gradient(circle, color-mix(in srgb, var(--active-color, var(--blue)) 26%, transparent), transparent 58%),
+        conic-gradient(from 40deg, rgba(47, 125, 246, 0.22), rgba(35, 185, 143, 0.16), rgba(231, 96, 139, 0.13), rgba(245, 158, 11, 0.13), rgba(47, 125, 246, 0.22));
+      box-shadow:
+        inset 0 0 0 1px rgba(16, 24, 40, 0.08),
+        inset 0 0 42px rgba(255, 255, 255, 0.64),
+        0 24px 64px color-mix(in srgb, var(--active-color, var(--blue)) 18%, transparent);
+    }
+
+    .orb::before,
+    .orb::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .orb::before {
+      inset: 24px;
+      border: 1px solid rgba(16, 24, 40, 0.12);
+    }
+
+    .orb::after {
+      inset: 58px;
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      background: rgba(255, 255, 255, 0.34);
+    }
+
+    .is-playing .orb {
+      animation: orbGlow 1.45s ease-out;
+    }
+
+    .cards-header {
+      margin: 18px 0 16px;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 760;
+    }
+
+    .section-note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      min-width: 0;
+      max-width: 100%;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px;
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr) auto;
+      gap: 14px;
+      align-items: start;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 1px 2px rgba(16, 24, 40, 0.03);
+      transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+    }
+
+    .card:hover {
+      border-color: color-mix(in srgb, var(--preset-color) 46%, var(--line));
+      box-shadow: var(--shadow);
+      transform: translateY(-2px);
+    }
+
+    .card.is-active {
+      border-color: color-mix(in srgb, var(--preset-color) 68%, var(--line));
+      box-shadow: 0 12px 30px color-mix(in srgb, var(--preset-color) 12%, transparent);
+    }
+
+    .icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius);
+      display: grid;
+      place-items: center;
+      color: var(--preset-color);
+      background: color-mix(in srgb, var(--preset-color) 13%, #fff);
+    }
+
+    .icon svg,
+    .action-button svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .card-body {
+      min-width: 0;
+      display: grid;
+      gap: 8px;
+      overflow-wrap: anywhere;
+    }
+
+    .card-title {
+      margin: 0;
+      color: #121722;
+      font-size: 1.02rem;
+      line-height: 1.28;
+      font-weight: 780;
+    }
+
+    .card-desc {
+      margin: 0;
+      color: #647084;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+    }
+
+    .meta {
+      min-width: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .chip {
+      min-height: 26px;
+      padding: 4px 8px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: #475467;
+      background: #fff;
+      font-size: 0.74rem;
+      font-weight: 670;
+    }
+
+    .actions {
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .action-button {
+      width: 38px;
+      height: 38px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      color: #263142;
+      background: var(--surface-soft);
+      cursor: pointer;
+      transition: background 160ms ease, color 160ms ease, transform 160ms ease;
+    }
+
+    .action-button:hover {
+      color: #fff;
+      background: var(--preset-color);
+    }
+
+    .action-button:active {
+      transform: scale(0.96);
+    }
+
+    .action-button:disabled {
+      cursor: wait;
+      color: var(--faint);
+      background: #eef1f6;
+      transform: none;
+    }
+
+    .status {
+      min-height: 22px;
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 0.88rem;
+      font-weight: 620;
+    }
+
+    @keyframes orbGlow {
+      0% {
+        transform: scale(0.96);
+      }
+
+      30% {
+        transform: scale(1.04);
+        box-shadow:
+          inset 0 0 0 1px rgba(16, 24, 40, 0.08),
+          inset 0 0 46px rgba(255, 255, 255, 0.74),
+          0 0 68px color-mix(in srgb, var(--active-color, var(--blue)) 30%, transparent),
+          0 24px 64px color-mix(in srgb, var(--active-color, var(--blue)) 18%, transparent);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    @media (max-width: 860px) {
+      .hero,
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 36px;
+      }
+
+      .orb-panel {
+        min-height: 260px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .app {
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+
+      .topbar,
+      .cards-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .card {
+        grid-template-columns: 40px minmax(0, 1fr);
+      }
+
+      .actions {
+        grid-column: 1 / -1;
+        padding-left: 54px;
+        justify-content: flex-start;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 1ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>AI Sound Studio</span>
+      </div>
+      <div class="encoder-state" id="encoderState">MP3 encoder loading</div>
+    </header>
+
+    <section class="hero" aria-labelledby="pageTitle">
+      <div>
+        <p class="eyebrow">Luminescent Pulse</p>
+        <h1 id="pageTitle">Soft AI activation candidates</h1>
+        <p class="hero-copy">
+          프리미엄 디바이스에 어울리는 부드러운 활성화 사운드 시안입니다.
+          각 카드에서 바로 재생하거나 MP3로 저장할 수 있습니다.
+        </p>
+        <div class="status" id="statusText" role="status">카드의 재생 버튼을 눌러 시안을 들어보세요.</div>
+      </div>
+
+      <div class="orb-panel" aria-hidden="true">
+        <div class="orb"></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="candidateTitle">
+      <div class="cards-header">
+        <div>
+          <h2 class="section-title" id="candidateTitle">Activation candidates</h2>
+          <p class="section-note">재생은 즉시, 다운로드는 오프라인 렌더링 후 저장됩니다.</p>
+        </div>
+        <span class="chip" id="candidateCount">0 presets</span>
+      </div>
+
+      <div class="grid" id="candidateGrid"></div>
+    </section>
+  </main>
+
+  <script>
+    let audioCtx = null;
+    let activeIndex = 0;
+    let resetTimer = 0;
+
+    const presets = [
+      {
+        name: "Warm Bloom",
+        mood: "Warm",
+        desc: "E4에서 B4로 열리는 기본형. 둥근 사인파와 얇은 글라스 톤이 균형 있게 섞입니다.",
+        color: "#2f7df6",
+        base: 329.63,
+        upper: 493.88,
+        chime: 987.77,
+        pitch: "E4 to B4",
+        layer: "Sine + Chime",
+        tone: "sine",
+        detune: 4,
+        topDelay: 0.15,
+        chimeDelay: 0.25,
+        attack: 0.18,
+        sustain: 0.36,
+        duration: 1.52,
+        filter: 860,
+        q: 0.6,
+        master: 0.14,
+        chimeGain: 0.075,
+        auraGain: 0.2,
+        noiseGain: 0.012,
+        shimmerGain: 0.028
+      },
+      {
+        name: "Pearl Wake",
+        mood: "Clean",
+        desc: "투명한 고역을 얇게 얹은 시안. 작고 정교한 디바이스 피드백에 어울립니다.",
+        color: "#35bde8",
+        base: 349.23,
+        upper: 523.25,
+        chime: 1046.5,
+        pitch: "F4 to C5",
+        layer: "Bell + Air",
+        tone: "sine",
+        detune: 2,
+        topDelay: 0.13,
+        chimeDelay: 0.2,
+        attack: 0.16,
+        sustain: 0.32,
+        duration: 1.36,
+        filter: 980,
+        q: 0.55,
+        master: 0.125,
+        chimeGain: 0.09,
+        auraGain: 0.18,
+        noiseGain: 0.009,
+        shimmerGain: 0.036
+      },
+      {
+        name: "Velvet Chime",
+        mood: "Soft",
+        desc: "로즈 피아노처럼 둥근 배음을 더한 버전. 시작점이 포근하고 압력이 낮습니다.",
+        color: "#23b98f",
+        base: 293.66,
+        upper: 440,
+        chime: 880,
+        pitch: "D4 to A4",
+        layer: "Rhodes + Chime",
+        tone: "triangle",
+        detune: 7,
+        topDelay: 0.17,
+        chimeDelay: 0.29,
+        attack: 0.21,
+        sustain: 0.4,
+        duration: 1.68,
+        filter: 720,
+        q: 0.5,
+        master: 0.15,
+        chimeGain: 0.056,
+        auraGain: 0.24,
+        noiseGain: 0.014,
+        shimmerGain: 0.024
+      },
+      {
+        name: "Aurora Rise",
+        mood: "Open",
+        desc: "메이저 9도 느낌의 넓은 상승감. 공간이 밝아지며 열리는 인상이 큽니다.",
+        color: "#805ad5",
+        base: 261.63,
+        upper: 587.33,
+        chime: 1174.66,
+        pitch: "C4 to D5",
+        layer: "Fifth + M9",
+        tone: "sine",
+        detune: 5,
+        topDelay: 0.18,
+        chimeDelay: 0.32,
+        attack: 0.19,
+        sustain: 0.38,
+        duration: 1.74,
+        filter: 900,
+        q: 0.62,
+        master: 0.132,
+        chimeGain: 0.064,
+        auraGain: 0.28,
+        noiseGain: 0.011,
+        shimmerGain: 0.042
+      },
+      {
+        name: "Mist Signal",
+        mood: "Calm",
+        desc: "숨결 같은 노이즈 레이어가 먼저 올라오고 낮은 톤이 조용히 따라옵니다.",
+        color: "#6b9bff",
+        base: 246.94,
+        upper: 369.99,
+        chime: 739.99,
+        pitch: "B3 to F#4",
+        layer: "Air + Sine",
+        tone: "sine",
+        detune: 3,
+        topDelay: 0.16,
+        chimeDelay: 0.34,
+        attack: 0.24,
+        sustain: 0.42,
+        duration: 1.62,
+        filter: 690,
+        q: 0.45,
+        master: 0.142,
+        chimeGain: 0.044,
+        auraGain: 0.23,
+        noiseGain: 0.022,
+        shimmerGain: 0.018
+      },
+      {
+        name: "Halo Glass",
+        mood: "Bright",
+        desc: "글로켄슈필 질감을 작게 살린 시안. 밝지만 타격감은 둥글게 눌렀습니다.",
+        color: "#f59e0b",
+        base: 329.63,
+        upper: 493.88,
+        chime: 1318.51,
+        pitch: "E4 to B4",
+        layer: "Glass + Sine",
+        tone: "sine",
+        detune: 1,
+        topDelay: 0.12,
+        chimeDelay: 0.19,
+        attack: 0.14,
+        sustain: 0.3,
+        duration: 1.44,
+        filter: 1180,
+        q: 0.7,
+        master: 0.118,
+        chimeGain: 0.105,
+        auraGain: 0.18,
+        noiseGain: 0.008,
+        shimmerGain: 0.048
+      },
+      {
+        name: "Ember Soft",
+        mood: "Organic",
+        desc: "중저역이 더 따뜻한 버전. 차갑지 않은 홈 디바이스에 맞는 색감입니다.",
+        color: "#e7608b",
+        base: 277.18,
+        upper: 415.3,
+        chime: 830.61,
+        pitch: "C#4 to G#4",
+        layer: "Warm Pad",
+        tone: "triangle",
+        detune: 8,
+        topDelay: 0.2,
+        chimeDelay: 0.35,
+        attack: 0.23,
+        sustain: 0.44,
+        duration: 1.82,
+        filter: 640,
+        q: 0.48,
+        master: 0.148,
+        chimeGain: 0.04,
+        auraGain: 0.3,
+        noiseGain: 0.016,
+        shimmerGain: 0.018
+      },
+      {
+        name: "Cloud Sync",
+        mood: "Neutral",
+        desc: "클라우드 연결음처럼 안정적인 5도 상승. 기능성과 고급감을 함께 둡니다.",
+        color: "#14a38b",
+        base: 392,
+        upper: 587.33,
+        chime: 1174.66,
+        pitch: "G4 to D5",
+        layer: "Sync Pulse",
+        tone: "sine",
+        detune: 3,
+        topDelay: 0.11,
+        chimeDelay: 0.22,
+        attack: 0.15,
+        sustain: 0.34,
+        duration: 1.34,
+        filter: 920,
+        q: 0.58,
+        master: 0.124,
+        chimeGain: 0.066,
+        auraGain: 0.16,
+        noiseGain: 0.01,
+        shimmerGain: 0.03
+      },
+      {
+        name: "Lunar Door",
+        mood: "Deep",
+        desc: "낮은 시작음과 긴 릴리즈. 화면보다 공간이 열리는 듯한 인상입니다.",
+        color: "#64748b",
+        base: 220,
+        upper: 329.63,
+        chime: 659.25,
+        pitch: "A3 to E4",
+        layer: "Low Aura",
+        tone: "sine",
+        detune: 5,
+        topDelay: 0.19,
+        chimeDelay: 0.37,
+        attack: 0.26,
+        sustain: 0.46,
+        duration: 1.92,
+        filter: 560,
+        q: 0.44,
+        master: 0.155,
+        chimeGain: 0.035,
+        auraGain: 0.34,
+        noiseGain: 0.015,
+        shimmerGain: 0.014
+      },
+      {
+        name: "Prism Nod",
+        mood: "Premium",
+        desc: "원본 컨셉에 가장 가깝게 정돈한 최종 후보형. 배음과 잔향을 세련되게 다듬었습니다.",
+        color: "#a855f7",
+        base: 329.63,
+        upper: 493.88,
+        chime: 1108.73,
+        pitch: "E4 to B4",
+        layer: "Polished Mix",
+        tone: "sine",
+        detune: 4,
+        topDelay: 0.15,
+        chimeDelay: 0.27,
+        attack: 0.17,
+        sustain: 0.36,
+        duration: 1.58,
+        filter: 840,
+        q: 0.56,
+        master: 0.136,
+        chimeGain: 0.071,
+        auraGain: 0.26,
+        noiseGain: 0.012,
+        shimmerGain: 0.032
+      }
+    ];
+
+    const promptPresets = [
+      {
+        name: "s01 Original E4+B4",
+        mood: "Clean",
+        desc: "원본 Web Audio 코드에 가까운 안정적인 2톤 AI 활성화 사운드입니다.",
+        color: "#2f7df6",
+        pitch: "E4 + B4",
+        layer: "Two-tone",
+        duration: 1.5,
+        layers: [{ type: "twoTone", freqs: [329.63, 493.88], delay: 0.12, lowpass: 800, volume: 0.15, duration: 1.5, attack: 0.15 }]
+      },
+      {
+        name: "s02 Faster Soft UI",
+        mood: "Fast",
+        desc: "반응이 빠른 UI 피드백용으로 짧고 가볍게 정리한 E4+B4 버전입니다.",
+        color: "#35bde8",
+        pitch: "E4 + B4",
+        layer: "Two-tone",
+        duration: 1.25,
+        layers: [{ type: "twoTone", freqs: [329.63, 493.88], delay: 0.1, lowpass: 1000, volume: 0.11, duration: 1.25, attack: 0.08 }]
+      },
+      {
+        name: "s03 Slow Velvet UI",
+        mood: "Velvet",
+        desc: "느리고 부드러운 벨벳 UI 톤. 어택과 릴리즈를 길게 가져갑니다.",
+        color: "#23b98f",
+        pitch: "E4 + B4",
+        layer: "Two-tone",
+        duration: 1.8,
+        layers: [{ type: "twoTone", freqs: [329.63, 493.88], delay: 0.18, lowpass: 620, volume: 0.09, duration: 1.8, attack: 0.24 }]
+      },
+      {
+        name: "s04 Bm-ish Lower",
+        mood: "Calm",
+        desc: "B3와 F#4의 낮고 차분한 5도 상승감으로 더 안정적인 느낌을 줍니다.",
+        color: "#6b9bff",
+        pitch: "B3 + F#4",
+        layer: "Two-tone",
+        duration: 1.6,
+        layers: [{ type: "twoTone", freqs: [246.94, 369.99], delay: 0.14, lowpass: 700, volume: 0.12, duration: 1.6, attack: 0.18 }]
+      },
+      {
+        name: "s05 C + G Neutral",
+        mood: "Neutral",
+        desc: "밝고 중립적인 C4+G4 완전5도 시안입니다.",
+        color: "#14a38b",
+        pitch: "C4 + G4",
+        layer: "Two-tone",
+        duration: 1.45,
+        layers: [{ type: "twoTone", freqs: [261.63, 392], delay: 0.12, lowpass: 780, volume: 0.11, duration: 1.45, attack: 0.14 }]
+      },
+      {
+        name: "s06 D + A Premium",
+        mood: "Premium",
+        desc: "D4와 A4의 정제된 5도 진행으로 프리미엄 UI 톤에 가깝습니다.",
+        color: "#805ad5",
+        pitch: "D4 + A4",
+        layer: "Two-tone",
+        duration: 1.5,
+        layers: [{ type: "twoTone", freqs: [293.66, 440], delay: 0.12, lowpass: 740, volume: 0.11, duration: 1.5, attack: 0.14 }]
+      },
+      {
+        name: "s07 Purple Open Fifth Pad",
+        mood: "Purple",
+        desc: "A3, E4, B4가 순차적으로 열리는 보랏빛 AI 패드 계열입니다.",
+        color: "#8b5cf6",
+        pitch: "A3 E4 B4",
+        layer: "Chord pad",
+        duration: 2.4,
+        layers: [{ type: "tones", freqs: [220, 329.63, 493.88], lowpass: 620, volume: 0.1, duration: 2.4, attack: 0.45, stagger: 0.16 }]
+      },
+      {
+        name: "s08 Violet Suspended",
+        mood: "Suspended",
+        desc: "G3, D4, A4, E5의 넓은 서스펜디드 무드 패드입니다.",
+        color: "#7c3aed",
+        pitch: "G3 D4 A4 E5",
+        layer: "Chord pad",
+        duration: 2.8,
+        layers: [{ type: "tones", freqs: [196, 293.66, 440, 659.25], lowpass: 760, volume: 0.085, duration: 2.8, attack: 0.55, stagger: 0.12 }]
+      },
+      {
+        name: "s09 Dark Royal Pad",
+        mood: "Royal",
+        desc: "Triangle 파형의 낮고 로열한 패드. 어두운 고급감을 줍니다.",
+        color: "#5b21b6",
+        pitch: "F3 C4 G4 C5",
+        layer: "Triangle pad",
+        duration: 3,
+        layers: [{ type: "tones", wave: "triangle", freqs: [174.61, 261.63, 392, 523.25], lowpass: 680, volume: 0.09, duration: 3, attack: 0.7, stagger: 0.2 }]
+      },
+      {
+        name: "s10 Lydian Crystal",
+        mood: "Crystal",
+        desc: "리디안 계열의 살짝 열린 프리미엄 테크 감성 패드입니다.",
+        color: "#a855f7",
+        pitch: "G#3 D#4 A#4 D#5",
+        layer: "Chord pad",
+        duration: 2.7,
+        layers: [{ type: "tones", freqs: [207.65, 311.13, 466.16, 622.25], lowpass: 720, volume: 0.08, duration: 2.7, attack: 0.65, stagger: 0.1 }]
+      },
+      {
+        name: "s11 Gentle Morph Pad",
+        mood: "Morph",
+        desc: "E minor 계열에서 F/C/G로 천천히 글라이드하는 부드러운 활성화 패드입니다.",
+        color: "#9333ea",
+        pitch: "E/B/F# to F/C/G",
+        layer: "Glide chord",
+        duration: 2.4,
+        layers: [{ type: "tones", freqs: [164.81, 246.94, 369.99], endFreqs: [174.61, 261.63, 392], lowpass: 540, volume: 0.1, duration: 2.4, attack: 0.5, stagger: 0.08 }]
+      },
+      {
+        name: "s12 Breathing AI Pad",
+        mood: "Breathing",
+        desc: "공기감 노이즈와 A/E/B 패드가 함께 숨 쉬듯 열리는 시안입니다.",
+        color: "#6d28d9",
+        pitch: "A3 E4 B4",
+        layer: "Noise + Pad",
+        duration: 2.6,
+        layers: [
+          { type: "noise", highpass: 280, lowpass: 1700, volume: 0.035, duration: 2.6, attack: 0.45 },
+          { type: "tones", freqs: [220, 330, 495], lowpass: 700, volume: 0.09, duration: 2.6, attack: 0.5, stagger: 0.12 }
+        ]
+      },
+      {
+        name: "s13 Soft Glass Bell",
+        mood: "Glass",
+        desc: "맑지만 과하지 않은 E5+B5 소프트 글라스 벨입니다.",
+        color: "#38bdf8",
+        pitch: "E5 + B5",
+        layer: "Bell",
+        duration: 2.1,
+        layers: [{ type: "bell", freqs: [659.25, 987.77], lowpass: 2400, volume: 0.12, duration: 2.1, attack: 0.012, stagger: 0.025 }]
+      },
+      {
+        name: "s14 Airy Triple Bell",
+        mood: "Airy",
+        desc: "C5, G5, C6로 구성된 밝고 깨끗한 트리플 벨입니다.",
+        color: "#0ea5e9",
+        pitch: "C5 G5 C6",
+        layer: "Triple bell",
+        duration: 2.4,
+        layers: [{ type: "bell", freqs: [523.25, 783.99, 1046.5], lowpass: 2400, volume: 0.09, duration: 2.4, attack: 0.014, stagger: 0.04 }]
+      },
+      {
+        name: "s15 Violet Bell",
+        mood: "Violet",
+        desc: "A# 계열의 보랏빛에 가까운 몽환적인 벨 톤입니다.",
+        color: "#8b5cf6",
+        pitch: "A#4 F5 A#5",
+        layer: "Bell",
+        duration: 2.2,
+        layers: [{ type: "bell", freqs: [466.16, 698.46, 932.33], lowpass: 2400, volume: 0.095, duration: 2.2, attack: 0.016, stagger: 0.04 }]
+      },
+      {
+        name: "s16 Reverse-ish Spark",
+        mood: "Reverse",
+        desc: "느린 어택으로 리버스 벨처럼 살짝 빨려 들어왔다가 부드럽게 사라집니다.",
+        color: "#22c55e",
+        pitch: "D5 A5 D6",
+        layer: "Reverse bell",
+        duration: 1.8,
+        layers: [{ type: "bell", freqs: [587.33, 880, 1174.66], lowpass: 2400, volume: 0.09, duration: 1.8, attack: 0.32, stagger: 0.03 }]
+      },
+      {
+        name: "s17 Micro Arpeggio",
+        mood: "Glitter",
+        desc: "작고 빠른 UI 글리터 느낌의 E/B 마이크로 아르페지오입니다.",
+        color: "#f59e0b",
+        pitch: "E4 B4 E5 B5",
+        layer: "Arpeggio",
+        duration: 1.7,
+        layers: [{ type: "arpeggio", freqs: [329.63, 493.88, 659.25, 987.77], step: 0.085, lowpass: 1800, volume: 0.09, duration: 1.7 }]
+      },
+      {
+        name: "s18 Slow Crystal Arp",
+        mood: "Crystal",
+        desc: "느린 크리스털 질감의 B/F# 아르페지오 시안입니다.",
+        color: "#06b6d4",
+        pitch: "B3 F#4 B4 F#5",
+        layer: "Arpeggio",
+        duration: 2,
+        layers: [{ type: "arpeggio", freqs: [246.94, 369.99, 493.88, 739.99], step: 0.13, lowpass: 1300, volume: 0.085, duration: 2 }]
+      },
+      {
+        name: "s19 Soft Sub Bloom E2",
+        mood: "Sub",
+        desc: "E2 서브 베이스가 부드럽게 피어오르는 낮은 블룸입니다.",
+        color: "#475569",
+        pitch: "E2",
+        layer: "Sub bloom",
+        duration: 1.6,
+        layers: [{ type: "sweep", freqs: [82.41, 81.17], times: [0, 1.6], lowpass: 260, volume: 0.16, duration: 1.6, attack: 0.18 }]
+      },
+      {
+        name: "s20 Warm Sub A2",
+        mood: "Warm Sub",
+        desc: "A2 기반의 따뜻하고 안정적인 저역 활성화 톤입니다.",
+        color: "#64748b",
+        pitch: "A2",
+        layer: "Sub bloom",
+        duration: 1.4,
+        layers: [{ type: "sweep", freqs: [110, 108.35], times: [0, 1.4], lowpass: 300, volume: 0.14, duration: 1.4, attack: 0.18 }]
+      },
+      {
+        name: "s21 Sub + Glass",
+        mood: "Hybrid",
+        desc: "저역과 글라스 차임이 함께 있는 하이브리드 활성화 사운드입니다.",
+        color: "#0891b2",
+        pitch: "98Hz + E/B",
+        layer: "Sub + Chime",
+        duration: 2.2,
+        layers: [
+          { type: "tones", freqs: [98], lowpass: 260, volume: 0.11, duration: 2.2, attack: 0.2 },
+          { type: "bell", start: 0.3, freqs: [659.25, 988.88], lowpass: 1800, volume: 0.07, duration: 1.7, attack: 0.018, stagger: 0.03 }
+        ]
+      },
+      {
+        name: "s22 Deep Purple Entry",
+        mood: "Deep Purple",
+        desc: "D#2 서브와 B 계열 차임으로 어두운 보랏빛 입장감을 만듭니다.",
+        color: "#581c87",
+        pitch: "D#2 + B4",
+        layer: "Sub + Chime",
+        duration: 2.4,
+        layers: [
+          { type: "tones", freqs: [73.42], lowpass: 240, volume: 0.11, duration: 2.4, attack: 0.24 },
+          { type: "bell", start: 0.3, freqs: [493.88, 740.82], lowpass: 1800, volume: 0.07, duration: 1.8, attack: 0.02, stagger: 0.035 }
+        ]
+      },
+      {
+        name: "s23 Soft Impact Pad",
+        mood: "Impact",
+        desc: "충격음이 아닌 화면 아래에서 깊게 켜지는 소프트 임팩트 패드입니다.",
+        color: "#334155",
+        pitch: "C2 C3 G3 D4",
+        layer: "Impact pad",
+        duration: 2.6,
+        layers: [{ type: "tones", wave: "triangle", freqs: [65.41, 130.81, 196, 293.66], lowpass: 680, volume: 0.12, duration: 2.6, attack: 0.35, stagger: 0.08 }]
+      },
+      {
+        name: "s24 Low Sweep Pass",
+        mood: "Sweep",
+        desc: "70Hz에서 122Hz를 거쳐 96Hz로 지나가는 고급 UI 저역 스윕입니다.",
+        color: "#0f172a",
+        pitch: "70 to 122 to 96Hz",
+        layer: "Low sweep",
+        duration: 1.8,
+        layers: [{ type: "sweep", freqs: [70, 122, 96], times: [0, 0.8, 1.8], lowpass: 500, volume: 0.12, duration: 1.8, attack: 0.3 }]
+      },
+      {
+        name: "s25 Soft Air Swell",
+        mood: "Air",
+        desc: "부드러운 바람 같은 고역 노이즈 스웰입니다.",
+        color: "#94a3b8",
+        pitch: "Noise",
+        layer: "Air swell",
+        duration: 1.8,
+        layers: [{ type: "noise", highpass: 600, lowpass: 2400, volume: 0.09, duration: 1.8, attack: 0.45 }]
+      },
+      {
+        name: "s26 Velvet Noise Rise",
+        mood: "Velvet",
+        desc: "더 낮고 벨벳 같은 노이즈 라이즈. 차분한 활성화 배경에 좋습니다.",
+        color: "#64748b",
+        pitch: "Noise",
+        layer: "Noise rise",
+        duration: 2.4,
+        layers: [{ type: "noise", highpass: 300, lowpass: 1600, volume: 0.075, duration: 2.4, attack: 0.65 }]
+      },
+      {
+        name: "s27 Fine Shimmer",
+        mood: "Shimmer",
+        desc: "얇게 흩어지는 고역 입자감의 쉬머 시안입니다.",
+        color: "#38bdf8",
+        pitch: "1760+Hz",
+        layer: "Particles",
+        duration: 2.2,
+        layers: [{ type: "bell", freqs: [1760, 2217, 2793, 3520], lowpass: 3200, volume: 0.07, duration: 2.2, attack: 0.04, stagger: 0.11 }]
+      },
+      {
+        name: "s28 Slow Stardust",
+        mood: "Stardust",
+        desc: "천천히 사라지는 별가루 같은 고역 파티클입니다.",
+        color: "#7dd3fc",
+        pitch: "1320+Hz",
+        layer: "Slow shimmer",
+        duration: 3,
+        layers: [{ type: "bell", freqs: [1320, 1760, 2217, 2637], lowpass: 3200, volume: 0.05, duration: 3, attack: 0.08, stagger: 0.11 }]
+      },
+      {
+        name: "s29 Air + Tone",
+        mood: "Air Tone",
+        desc: "공기감 위에 B3와 F#4 톤을 살짝 얹은 버전입니다.",
+        color: "#06b6d4",
+        pitch: "B3 + F#4",
+        layer: "Noise + Tone",
+        duration: 2.2,
+        layers: [
+          { type: "noise", highpass: 320, lowpass: 1800, volume: 0.04, duration: 2.2, attack: 0.45 },
+          { type: "tones", freqs: [246.94, 369.99], lowpass: 900, volume: 0.08, duration: 2.2, attack: 0.28, stagger: 0.12 }
+        ]
+      },
+      {
+        name: "s30 Filtered Dust Ping",
+        mood: "Dust",
+        desc: "짧은 공기 입자 한 점이 움직임을 시작하는 밴드패스 노이즈 핑입니다.",
+        color: "#9ca3af",
+        pitch: "Noise 1.4k",
+        layer: "Dust ping",
+        duration: 1.5,
+        layers: [{ type: "noise", bandpass: 1400, q: 4, volume: 0.08, duration: 1.5, attack: 0.04 }]
+      },
+      {
+        name: "s31 Soft Data Scan",
+        mood: "Scan",
+        desc: "작은 데이터 입자가 스캔되는 듯한 빠른 미래형 UI 아르페지오입니다.",
+        color: "#2563eb",
+        pitch: "440 scan",
+        layer: "Data scan",
+        duration: 1.2,
+        layers: [{ type: "arpeggio", base: 440, steps: [0, 12, 7, 19, 24, 19, 12], step: 0.07, lowpass: 1800, volume: 0.075, duration: 1.2 }]
+      },
+      {
+        name: "s32 Slow Data Wake",
+        mood: "Data Wake",
+        desc: "느리고 열린 데이터 웨이크 시퀀스. 인식 시작 신호에 가깝습니다.",
+        color: "#3b82f6",
+        pitch: "330 scan",
+        layer: "Slow scan",
+        duration: 1.5,
+        layers: [{ type: "arpeggio", base: 330, steps: [0, 7, 12, 19, 12, 7], step: 0.16, lowpass: 1800, volume: 0.07, duration: 1.5 }]
+      },
+      {
+        name: "s33 Soft FM Sparkle",
+        mood: "FM",
+        desc: "미래적이지만 얇고 부드러운 FM 금속 반짝임입니다.",
+        color: "#0ea5e9",
+        pitch: "E/B/B",
+        layer: "FM sparkle",
+        duration: 1.6,
+        layers: [{ type: "fm", freqs: [329.63, 493.88, 987.77], modRatio: 2.01, modGain: 28, lowpass: 2600, volume: 0.08, duration: 1.6, attack: 0.06, stagger: 0.08 }]
+      },
+      {
+        name: "s34 Low FM Bloom",
+        mood: "Low FM",
+        desc: "고역을 줄인 고급 FM 블룸. 더 낮고 차분하게 피어납니다.",
+        color: "#0369a1",
+        pitch: "E/B/B",
+        layer: "FM bloom",
+        duration: 2.2,
+        layers: [{ type: "fm", freqs: [329.63, 493.88, 987.77], modRatio: 2.01, modGain: 12, lowpass: 1300, volume: 0.06, duration: 2.2, attack: 0.28, stagger: 0.1 }]
+      },
+      {
+        name: "s35 Scan + Chord",
+        mood: "Scan Pad",
+        desc: "느린 데이터 스캔 뒤 A/E/B 코드가 따뜻하게 올라오는 구조입니다.",
+        color: "#2563eb",
+        pitch: "Scan + A/E/B",
+        layer: "Scan + Chord",
+        duration: 1.8,
+        layers: [
+          { type: "arpeggio", base: 330, steps: [0, 7, 12, 19], step: 0.1, lowpass: 1800, volume: 0.035, duration: 0.9 },
+          { type: "tones", start: 0.14, freqs: [220, 329.63, 493.88], lowpass: 740, volume: 0.08, duration: 1.66, attack: 0.32, stagger: 0.08 }
+        ]
+      },
+      {
+        name: "s36 Soft Confirmation",
+        mood: "Confirm",
+        desc: "짧은 확인용 활성화 마무리 사인. B4와 E5가 빠르게 응답합니다.",
+        color: "#22c55e",
+        pitch: "B4 + E5",
+        layer: "Confirmation",
+        duration: 1,
+        layers: [{ type: "twoTone", freqs: [493.88, 659.25], delay: 0.08, lowpass: 1200, volume: 0.09, duration: 1, attack: 0.06 }]
+      },
+      {
+        name: "s37 Wake Bloom",
+        mood: "Cinematic",
+        desc: "공기감, E2 서브, E/B/F# 패드가 순서대로 켜지는 시네마틱 웨이크입니다.",
+        color: "#475569",
+        pitch: "Noise + E2 + Pad",
+        layer: "Sequence",
+        duration: 3.2,
+        layers: [
+          { type: "noise", highpass: 300, lowpass: 1800, volume: 0.045, duration: 2.6, attack: 0.7 },
+          { type: "tones", start: 0.26, freqs: [82.41], lowpass: 260, volume: 0.1, duration: 1.8, attack: 0.18 },
+          { type: "tones", start: 0.52, freqs: [164.81, 246.94, 369.99], lowpass: 620, volume: 0.08, duration: 2.4, attack: 0.48, stagger: 0.14 }
+        ]
+      },
+      {
+        name: "s38 Luxury Reveal",
+        mood: "Luxury",
+        desc: "서브, 글라스, 로열 패드가 차례로 등장하는 럭셔리 리빌입니다.",
+        color: "#7c3aed",
+        pitch: "Sub + Bell + Pad",
+        layer: "Sequence",
+        duration: 3.4,
+        layers: [
+          { type: "tones", freqs: [98], lowpass: 280, volume: 0.095, duration: 2.4, attack: 0.28 },
+          { type: "bell", start: 0.36, freqs: [659.25, 987.77], lowpass: 2400, volume: 0.07, duration: 2, attack: 0.018, stagger: 0.04 },
+          { type: "tones", start: 0.58, freqs: [196, 293.66, 440, 659.25], lowpass: 720, volume: 0.07, duration: 2.8, attack: 0.52, stagger: 0.12 }
+        ]
+      },
+      {
+        name: "s39 Minimal AI Entrance",
+        mood: "Minimal",
+        desc: "짧은 노이즈 핑 뒤 E4+B4가 들어오는 미니멀 AI 입장음입니다.",
+        color: "#0f766e",
+        pitch: "Noise + E/B",
+        layer: "Sequence",
+        duration: 1.8,
+        layers: [
+          { type: "noise", bandpass: 1400, q: 4, volume: 0.045, duration: 1, attack: 0.03 },
+          { type: "twoTone", start: 0.12, freqs: [329.63, 493.88], delay: 0.13, lowpass: 750, volume: 0.07, duration: 1.2, attack: 0.12 }
+        ]
+      },
+      {
+        name: "s40 Long Ambient Boot",
+        mood: "Ambient",
+        desc: "3초 이상 이어지는 부드러운 애니메이션용 앰비언트 부트 사운드입니다.",
+        color: "#6d28d9",
+        pitch: "Glide + Shimmer",
+        layer: "Sequence",
+        duration: 3.6,
+        layers: [
+          { type: "noise", highpass: 240, lowpass: 1600, volume: 0.055, duration: 3.2, attack: 0.8 },
+          { type: "tones", start: 0.18, freqs: [164.81, 246.94, 369.99], endFreqs: [174.61, 261.63, 392], lowpass: 560, volume: 0.08, duration: 3, attack: 0.58, stagger: 0.1 },
+          { type: "bell", start: 0.7, freqs: [1320, 1760, 2217, 2637], lowpass: 3200, volume: 0.04, duration: 2.6, attack: 0.1, stagger: 0.11 }
+        ]
+      },
+      {
+        name: "s41 Cute but Premium",
+        mood: "Cute",
+        desc: "작은 아르페지오와 패드가 결합된 귀엽지만 유치하지 않은 프리미엄 캐릭터 톤입니다.",
+        color: "#ec4899",
+        pitch: "Arp + A/E/B",
+        layer: "Sequence",
+        duration: 2.4,
+        layers: [
+          { type: "arpeggio", freqs: [329.63, 493.88, 659.25], step: 0.1, lowpass: 1600, volume: 0.055, duration: 1.1 },
+          { type: "tones", start: 0.26, freqs: [220, 329.63, 493.88], lowpass: 760, volume: 0.06, duration: 2.1, attack: 0.36, stagger: 0.1 }
+        ]
+      },
+      {
+        name: "s42 Dark Tech Bloom",
+        mood: "Dark Tech",
+        desc: "저역 스윕, 노이즈+코드, 낮은 FM 스파클이 겹치는 다크 테크 블룸입니다.",
+        color: "#111827",
+        pitch: "Sweep + Chord + FM",
+        layer: "Sequence",
+        duration: 3,
+        layers: [
+          { type: "sweep", freqs: [70, 122, 96], times: [0, 0.9, 2], lowpass: 500, volume: 0.09, duration: 2, attack: 0.3 },
+          { type: "noise", start: 0.22, highpass: 280, lowpass: 1600, volume: 0.03, duration: 2.4, attack: 0.52 },
+          { type: "tones", start: 0.22, freqs: [207.65, 311.13, 466.16], lowpass: 620, volume: 0.065, duration: 2.5, attack: 0.42, stagger: 0.1 },
+          { type: "fm", start: 0.68, freqs: [329.63, 493.88, 987.77], modRatio: 2.01, modGain: 12, lowpass: 1300, volume: 0.04, duration: 1.9, attack: 0.18, stagger: 0.08 }
+        ]
+      }
+    ];
+
+    presets.push(...promptPresets);
+
+    const candidateGrid = document.querySelector("#candidateGrid");
+    const statusText = document.querySelector("#statusText");
+    const encoderState = document.querySelector("#encoderState");
+    const candidateCount = document.querySelector("#candidateCount");
+
+    function getPresetNumber(index) {
+      return String(index + 1).padStart(2, "0");
+    }
+
+    function formatDuration(seconds) {
+      return `${seconds.toFixed(2)}s`;
+    }
+
+    function slugify(value) {
+      return value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+    }
+
+    function setStatus(message) {
+      statusText.textContent = message;
+    }
+
+    function updateEncoderState() {
+      if (window.lamejs) {
+        encoderState.textContent = "MP3 download ready";
+      } else {
+        encoderState.textContent = "MP3 encoder unavailable, WAV fallback";
+      }
+    }
+
+    function renderCards() {
+      candidateCount.textContent = `${presets.length} presets`;
+      candidateGrid.innerHTML = presets.map((preset, index) => `
+        <article class="card${index === activeIndex ? " is-active" : ""}" style="--preset-color: ${preset.color}" data-index="${index}">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 12h3l3-6v12l4-8 3 4h3" /></svg>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">${getPresetNumber(index)}. ${preset.name}</h3>
+            <p class="card-desc">${preset.desc}</p>
+            <div class="meta">
+              <span class="chip">${preset.pitch}</span>
+              <span class="chip">${preset.layer}</span>
+              <span class="chip">${preset.mood}</span>
+              <span class="chip">${formatDuration(preset.duration)}</span>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="action-button play-card" type="button" aria-label="${preset.name} 재생" title="재생">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor" stroke="none" /></svg>
+            </button>
+            <button class="action-button download-card" type="button" aria-label="${preset.name} MP3 다운로드" title="MP3 다운로드">
+              <svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M5 21h14" /></svg>
+            </button>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    async function ensureAudioContext() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+
+      if (audioCtx.state === "suspended") {
+        await audioCtx.resume();
+      }
+    }
+
+    function createImpulseResponse(ctx, duration = 1.8, decay = 2.6) {
+      const sampleRate = ctx.sampleRate;
+      const length = Math.floor(sampleRate * duration);
+      const impulse = ctx.createBuffer(2, length, sampleRate);
+
+      for (let channel = 0; channel < 2; channel += 1) {
+        const data = impulse.getChannelData(channel);
+        let smoothed = 0;
+        for (let index = 0; index < length; index += 1) {
+          const t = index / length;
+          smoothed = smoothed * 0.94 + (Math.random() * 2 - 1) * 0.06;
+          data[index] = smoothed * Math.pow(1 - t, decay) * 0.72;
+        }
+      }
+
+      return impulse;
+    }
+
+    function createSoftNoise(ctx, duration) {
+      const sampleRate = ctx.sampleRate;
+      const length = Math.ceil(sampleRate * duration);
+      const buffer = ctx.createBuffer(1, length, sampleRate);
+      const data = buffer.getChannelData(0);
+      let smoothed = 0;
+
+      for (let index = 0; index < length; index += 1) {
+        smoothed = smoothed * 0.985 + (Math.random() * 2 - 1) * 0.015;
+        data[index] = smoothed;
+      }
+
+      return buffer;
+    }
+
+    function scheduleTone(ctx, options) {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      const panner = ctx.createStereoPanner();
+      const stopAt = options.start + options.duration;
+
+      osc.type = options.type;
+      osc.frequency.setValueAtTime(options.frequency, options.start);
+      osc.detune.setValueAtTime(options.detune, options.start);
+      panner.pan.setValueAtTime(options.pan, options.start);
+
+      gain.gain.setValueAtTime(0.0001, options.start);
+      gain.gain.linearRampToValueAtTime(options.peak, options.start + options.attack);
+      gain.gain.setValueAtTime(options.peak, options.start + Math.max(options.attack + 0.02, options.duration * 0.36));
+      gain.gain.exponentialRampToValueAtTime(0.0001, stopAt);
+
+      osc.connect(gain).connect(panner).connect(options.destination);
+      osc.start(options.start);
+      osc.stop(stopAt + 0.04);
+    }
+
+    function scheduleChime(ctx, preset, start, destination) {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      const filter = ctx.createBiquadFilter();
+      const panner = ctx.createStereoPanner();
+      const stopAt = start + 0.78;
+
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(preset.chime, start);
+      osc.frequency.exponentialRampToValueAtTime(preset.chime * 0.996, stopAt);
+      filter.type = "lowpass";
+      filter.frequency.setValueAtTime(2800, start);
+      filter.Q.setValueAtTime(0.25, start);
+      panner.pan.setValueAtTime(0.18, start);
+
+      gain.gain.setValueAtTime(0.0001, start);
+      gain.gain.linearRampToValueAtTime(preset.chimeGain, start + 0.055);
+      gain.gain.exponentialRampToValueAtTime(0.0001, stopAt);
+
+      osc.connect(gain).connect(filter).connect(panner).connect(destination);
+      osc.start(start);
+      osc.stop(stopAt + 0.04);
+    }
+
+    function scheduleNoise(ctx, preset, start, destination) {
+      const source = ctx.createBufferSource();
+      const gain = ctx.createGain();
+      const filter = ctx.createBiquadFilter();
+      const panner = ctx.createStereoPanner();
+      const duration = preset.duration + 0.08;
+
+      source.buffer = createSoftNoise(ctx, duration);
+      filter.type = "bandpass";
+      filter.frequency.setValueAtTime(Math.min(1300, preset.filter * 1.25), start);
+      filter.Q.setValueAtTime(0.65, start);
+      panner.pan.setValueAtTime(-0.16, start);
+
+      gain.gain.setValueAtTime(0.0001, start);
+      gain.gain.linearRampToValueAtTime(preset.noiseGain, start + 0.18);
+      gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+
+      source.connect(filter).connect(gain).connect(panner).connect(destination);
+      source.start(start);
+      source.stop(start + duration + 0.02);
+    }
+
+    function semitoneToFrequency(base, semitone) {
+      return base * Math.pow(2, semitone / 12);
+    }
+
+    function connectOptionalFilter(ctx, source, layer, start, destination) {
+      let current = source;
+
+      if (layer.bandpass) {
+        const filter = ctx.createBiquadFilter();
+        filter.type = "bandpass";
+        filter.frequency.setValueAtTime(layer.bandpass, start);
+        filter.Q.setValueAtTime(layer.q || 1, start);
+        current.connect(filter);
+        current = filter;
+      } else if (layer.lowpass || layer.highpass) {
+        if (layer.highpass) {
+          const highpass = ctx.createBiquadFilter();
+          highpass.type = "highpass";
+          highpass.frequency.setValueAtTime(layer.highpass, start);
+          highpass.Q.setValueAtTime(0.65, start);
+          current.connect(highpass);
+          current = highpass;
+        }
+
+        if (layer.lowpass) {
+          const lowpass = ctx.createBiquadFilter();
+          lowpass.type = "lowpass";
+          lowpass.frequency.setValueAtTime(layer.lowpass, start);
+          lowpass.Q.setValueAtTime(layer.q || 0.55, start);
+          current.connect(lowpass);
+          current = lowpass;
+        }
+      }
+
+      current.connect(destination);
+    }
+
+    function schedulePromptTone(ctx, layer, start, destination, frequency, index, count) {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      const panner = ctx.createStereoPanner();
+      const duration = Math.max(0.08, layer.duration - (start - (layer.absoluteStart || start)));
+      const stopAt = start + duration;
+      const peak = (layer.volume || 0.08) / Math.sqrt(Math.max(1, count));
+      const attack = Math.min(layer.attack || 0.08, duration * 0.62);
+
+      osc.type = layer.wave || "sine";
+      osc.frequency.setValueAtTime(frequency, start);
+      if (layer.endFreqs && layer.endFreqs[index]) {
+        osc.frequency.exponentialRampToValueAtTime(layer.endFreqs[index], stopAt);
+      }
+
+      panner.pan.setValueAtTime(count > 1 ? (index / (count - 1) - 0.5) * 0.42 : 0, start);
+
+      gain.gain.setValueAtTime(0.0001, start);
+      gain.gain.linearRampToValueAtTime(peak, start + attack);
+      gain.gain.exponentialRampToValueAtTime(0.0001, stopAt);
+
+      osc.connect(gain).connect(panner);
+      connectOptionalFilter(ctx, panner, layer, start, destination);
+      osc.start(start);
+      osc.stop(stopAt + 0.04);
+    }
+
+    function schedulePromptTwoTone(ctx, layer, start, destination) {
+      const baseDuration = layer.duration || 1.5;
+      const firstLayer = { ...layer, duration: baseDuration };
+      const secondLayer = { ...layer, duration: Math.max(0.1, baseDuration - (layer.delay || 0.12)), attack: Math.min(0.14, layer.attack || 0.12) };
+      firstLayer.absoluteStart = start;
+      secondLayer.absoluteStart = start + (layer.delay || 0.12);
+      schedulePromptTone(ctx, firstLayer, start, destination, layer.freqs[0], 0, 2);
+      schedulePromptTone(ctx, secondLayer, start + (layer.delay || 0.12), destination, layer.freqs[1], 1, 2);
+    }
+
+    function schedulePromptTones(ctx, layer, start, destination) {
+      const freqs = layer.freqs || [];
+      freqs.forEach((frequency, index) => {
+        const noteStart = start + index * (layer.stagger || 0);
+        const noteLayer = { ...layer, absoluteStart: start };
+        schedulePromptTone(ctx, noteLayer, noteStart, destination, frequency, index, freqs.length);
+      });
+    }
+
+    function schedulePromptBell(ctx, layer, start, destination) {
+      const freqs = layer.freqs || [];
+      freqs.forEach((frequency, index) => {
+        const bellLayer = {
+          ...layer,
+          wave: "sine",
+          attack: layer.attack ?? 0.014,
+          duration: Math.max(0.12, (layer.duration || 1.8) - index * (layer.stagger || 0)),
+          absoluteStart: start
+        };
+        schedulePromptTone(ctx, bellLayer, start + index * (layer.stagger || 0), destination, frequency, index, freqs.length);
+      });
+    }
+
+    function schedulePromptArpeggio(ctx, layer, start, destination) {
+      const freqs = layer.freqs || (layer.steps || []).map((step) => semitoneToFrequency(layer.base || 440, step));
+      const stepTime = layer.step || 0.1;
+      freqs.forEach((frequency, index) => {
+        const noteLayer = {
+          ...layer,
+          attack: 0.018,
+          duration: Math.min(0.62, Math.max(0.16, (layer.duration || 1.4) - index * stepTime)),
+          absoluteStart: start
+        };
+        schedulePromptTone(ctx, noteLayer, start + index * stepTime, destination, frequency, index, freqs.length);
+      });
+    }
+
+    function schedulePromptNoise(ctx, layer, start, destination) {
+      const source = ctx.createBufferSource();
+      const gain = ctx.createGain();
+      const duration = layer.duration || 1.8;
+      const attack = Math.min(layer.attack || 0.16, duration * 0.7);
+
+      source.buffer = createSoftNoise(ctx, duration + 0.1);
+      gain.gain.setValueAtTime(0.0001, start);
+      gain.gain.linearRampToValueAtTime(layer.volume || 0.06, start + attack);
+      gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+
+      source.connect(gain);
+      connectOptionalFilter(ctx, gain, layer, start, destination);
+      source.start(start);
+      source.stop(start + duration + 0.12);
+    }
+
+    function schedulePromptSweep(ctx, layer, start, destination) {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      const duration = layer.duration || 1.8;
+      const freqs = layer.freqs || [80, 96];
+      const times = layer.times || freqs.map((_, index) => (duration / Math.max(1, freqs.length - 1)) * index);
+
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(freqs[0], start);
+      for (let index = 1; index < freqs.length; index += 1) {
+        osc.frequency.exponentialRampToValueAtTime(freqs[index], start + Math.min(duration, times[index]));
+      }
+
+      gain.gain.setValueAtTime(0.0001, start);
+      gain.gain.linearRampToValueAtTime(layer.volume || 0.1, start + Math.min(layer.attack || 0.2, duration * 0.5));
+      gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+
+      osc.connect(gain);
+      connectOptionalFilter(ctx, gain, layer, start, destination);
+      osc.start(start);
+      osc.stop(start + duration + 0.04);
+    }
+
+    function schedulePromptFm(ctx, layer, start, destination) {
+      const freqs = layer.freqs || [];
+      freqs.forEach((frequency, index) => {
+        const carrier = ctx.createOscillator();
+        const modulator = ctx.createOscillator();
+        const modGain = ctx.createGain();
+        const amp = ctx.createGain();
+        const panner = ctx.createStereoPanner();
+        const noteStart = start + index * (layer.stagger || 0);
+        const duration = Math.max(0.18, (layer.duration || 1.8) - index * (layer.stagger || 0));
+        const peak = (layer.volume || 0.06) / Math.sqrt(Math.max(1, freqs.length));
+
+        carrier.type = "sine";
+        modulator.type = "sine";
+        carrier.frequency.setValueAtTime(frequency, noteStart);
+        modulator.frequency.setValueAtTime(frequency * (layer.modRatio || 2), noteStart);
+        modGain.gain.setValueAtTime(layer.modGain || 12, noteStart);
+        panner.pan.setValueAtTime(freqs.length > 1 ? (index / (freqs.length - 1) - 0.5) * 0.36 : 0, noteStart);
+
+        amp.gain.setValueAtTime(0.0001, noteStart);
+        amp.gain.linearRampToValueAtTime(peak, noteStart + Math.min(layer.attack || 0.08, duration * 0.6));
+        amp.gain.exponentialRampToValueAtTime(0.0001, noteStart + duration);
+
+        modulator.connect(modGain).connect(carrier.frequency);
+        carrier.connect(amp).connect(panner);
+        connectOptionalFilter(ctx, panner, layer, noteStart, destination);
+        carrier.start(noteStart);
+        modulator.start(noteStart);
+        carrier.stop(noteStart + duration + 0.04);
+        modulator.stop(noteStart + duration + 0.04);
+      });
+    }
+
+    function schedulePromptLayer(ctx, layer, presetStart, destination) {
+      const start = presetStart + (layer.start || 0);
+
+      if (layer.type === "twoTone") {
+        schedulePromptTwoTone(ctx, layer, start, destination);
+      } else if (layer.type === "tones") {
+        schedulePromptTones(ctx, layer, start, destination);
+      } else if (layer.type === "bell") {
+        schedulePromptBell(ctx, layer, start, destination);
+      } else if (layer.type === "arpeggio") {
+        schedulePromptArpeggio(ctx, layer, start, destination);
+      } else if (layer.type === "noise") {
+        schedulePromptNoise(ctx, layer, start, destination);
+      } else if (layer.type === "sweep") {
+        schedulePromptSweep(ctx, layer, start, destination);
+      } else if (layer.type === "fm") {
+        schedulePromptFm(ctx, layer, start, destination);
+      }
+    }
+
+    function synthesizePromptPreset(ctx, preset, destination, start) {
+      const limiter = ctx.createDynamicsCompressor();
+      limiter.threshold.setValueAtTime(-16, start);
+      limiter.knee.setValueAtTime(18, start);
+      limiter.ratio.setValueAtTime(4, start);
+      limiter.attack.setValueAtTime(0.006, start);
+      limiter.release.setValueAtTime(0.2, start);
+      limiter.connect(destination);
+
+      preset.layers.forEach((layer) => {
+        schedulePromptLayer(ctx, layer, start, limiter);
+      });
+    }
+
+    function synthesizePreset(ctx, preset, destination, start) {
+      if (preset.layers) {
+        synthesizePromptPreset(ctx, preset, destination, start);
+        return;
+      }
+
+      const duration = preset.duration;
+      const bus = ctx.createGain();
+      const filter = ctx.createBiquadFilter();
+      const dry = ctx.createGain();
+      const wet = ctx.createGain();
+      const master = ctx.createGain();
+      const limiter = ctx.createDynamicsCompressor();
+      const reverb = ctx.createConvolver();
+
+      filter.type = "lowpass";
+      filter.frequency.setValueAtTime(preset.filter, start);
+      filter.frequency.exponentialRampToValueAtTime(Math.max(420, preset.filter * 0.78), start + duration);
+      filter.Q.setValueAtTime(preset.q, start);
+
+      reverb.buffer = createImpulseResponse(ctx, Math.min(2.4, duration + 0.66), 2.7);
+      dry.gain.setValueAtTime(0.86, start);
+      wet.gain.setValueAtTime(preset.auraGain, start);
+
+      master.gain.setValueAtTime(0.0001, start);
+      master.gain.linearRampToValueAtTime(preset.master, start + preset.attack);
+      master.gain.setValueAtTime(preset.master, start + preset.sustain);
+      master.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+
+      limiter.threshold.setValueAtTime(-18, start);
+      limiter.knee.setValueAtTime(18, start);
+      limiter.ratio.setValueAtTime(4, start);
+      limiter.attack.setValueAtTime(0.008, start);
+      limiter.release.setValueAtTime(0.18, start);
+
+      bus.connect(filter);
+      filter.connect(dry).connect(master);
+      filter.connect(reverb).connect(wet).connect(master);
+      master.connect(limiter).connect(destination);
+
+      scheduleTone(ctx, {
+        frequency: preset.base,
+        start,
+        duration,
+        attack: preset.attack,
+        peak: 0.58,
+        type: preset.tone,
+        detune: -preset.detune,
+        pan: -0.12,
+        destination: bus
+      });
+
+      scheduleTone(ctx, {
+        frequency: preset.base * 2,
+        start: start + 0.03,
+        duration: duration * 0.82,
+        attack: preset.attack + 0.04,
+        peak: 0.075,
+        type: "sine",
+        detune: preset.detune,
+        pan: 0.08,
+        destination: bus
+      });
+
+      scheduleTone(ctx, {
+        frequency: preset.upper,
+        start: start + preset.topDelay,
+        duration: duration - preset.topDelay,
+        attack: 0.13,
+        peak: 0.44,
+        type: "sine",
+        detune: preset.detune * 0.4,
+        pan: 0.12,
+        destination: bus
+      });
+
+      scheduleChime(ctx, preset, start + preset.chimeDelay, bus);
+
+      scheduleTone(ctx, {
+        frequency: preset.chime * 1.5,
+        start: start + preset.chimeDelay + 0.06,
+        duration: Math.min(1.08, duration - preset.chimeDelay),
+        attack: 0.18,
+        peak: preset.shimmerGain,
+        type: "sine",
+        detune: 6,
+        pan: 0.28,
+        destination: bus
+      });
+
+      scheduleNoise(ctx, preset, start, bus);
+    }
+
+    async function playPreset(index) {
+      activeIndex = index;
+      const preset = presets[index];
+      await ensureAudioContext();
+
+      document.documentElement.style.setProperty("--active-color", preset.color);
+      renderCards();
+      synthesizePreset(audioCtx, preset, audioCtx.destination, audioCtx.currentTime + 0.03);
+      setStatus(`${preset.name} 재생 중`);
+
+      document.body.classList.remove("is-playing");
+      void document.body.offsetWidth;
+      document.body.classList.add("is-playing");
+      window.clearTimeout(resetTimer);
+      resetTimer = window.setTimeout(() => {
+        document.body.classList.remove("is-playing");
+        setStatus("카드의 재생 버튼을 눌러 시안을 들어보세요.");
+      }, preset.duration * 1000);
+    }
+
+    async function renderPresetBuffer(preset) {
+      const sampleRate = 44100;
+      const renderDuration = preset.duration + 0.82;
+      const offlineCtx = new OfflineAudioContext(2, Math.ceil(renderDuration * sampleRate), sampleRate);
+      synthesizePreset(offlineCtx, preset, offlineCtx.destination, 0.05);
+      return offlineCtx.startRendering();
+    }
+
+    function floatTo16BitPcm(float32Array) {
+      const output = new Int16Array(float32Array.length);
+      for (let index = 0; index < float32Array.length; index += 1) {
+        const sample = Math.max(-1, Math.min(1, float32Array[index]));
+        output[index] = sample < 0 ? sample * 0x8000 : sample * 0x7fff;
+      }
+      return output;
+    }
+
+    function encodeMp3(audioBuffer) {
+      const sampleRate = audioBuffer.sampleRate;
+      const left = floatTo16BitPcm(audioBuffer.getChannelData(0));
+      const right = floatTo16BitPcm(audioBuffer.getChannelData(1));
+      const encoder = new lamejs.Mp3Encoder(2, sampleRate, 128);
+      const blockSize = 1152;
+      const chunks = [];
+
+      for (let index = 0; index < left.length; index += blockSize) {
+        const leftChunk = left.subarray(index, index + blockSize);
+        const rightChunk = right.subarray(index, index + blockSize);
+        const mp3buf = encoder.encodeBuffer(leftChunk, rightChunk);
+        if (mp3buf.length > 0) {
+          chunks.push(mp3buf);
+        }
+      }
+
+      const end = encoder.flush();
+      if (end.length > 0) {
+        chunks.push(end);
+      }
+
+      return new Blob(chunks, { type: "audio/mpeg" });
+    }
+
+    function writeString(view, offset, string) {
+      for (let index = 0; index < string.length; index += 1) {
+        view.setUint8(offset + index, string.charCodeAt(index));
+      }
+    }
+
+    function encodeWav(audioBuffer) {
+      const sampleRate = audioBuffer.sampleRate;
+      const left = audioBuffer.getChannelData(0);
+      const right = audioBuffer.getChannelData(1);
+      const samples = left.length;
+      const buffer = new ArrayBuffer(44 + samples * 4);
+      const view = new DataView(buffer);
+
+      writeString(view, 0, "RIFF");
+      view.setUint32(4, 36 + samples * 4, true);
+      writeString(view, 8, "WAVE");
+      writeString(view, 12, "fmt ");
+      view.setUint32(16, 16, true);
+      view.setUint16(20, 1, true);
+      view.setUint16(22, 2, true);
+      view.setUint32(24, sampleRate, true);
+      view.setUint32(28, sampleRate * 4, true);
+      view.setUint16(32, 4, true);
+      view.setUint16(34, 16, true);
+      writeString(view, 36, "data");
+      view.setUint32(40, samples * 4, true);
+
+      let offset = 44;
+      for (let index = 0; index < samples; index += 1) {
+        const leftSample = Math.max(-1, Math.min(1, left[index]));
+        const rightSample = Math.max(-1, Math.min(1, right[index]));
+        view.setInt16(offset, leftSample < 0 ? leftSample * 0x8000 : leftSample * 0x7fff, true);
+        view.setInt16(offset + 2, rightSample < 0 ? rightSample * 0x8000 : rightSample * 0x7fff, true);
+        offset += 4;
+      }
+
+      return new Blob([buffer], { type: "audio/wav" });
+    }
+
+    function downloadBlob(blob, filename) {
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+
+    async function downloadPreset(index, button) {
+      const preset = presets[index];
+      button.disabled = true;
+      setStatus(`${preset.name} 렌더링 중`);
+
+      try {
+        const buffer = await renderPresetBuffer(preset);
+        const hasMp3Encoder = Boolean(window.lamejs);
+        const blob = hasMp3Encoder ? encodeMp3(buffer) : encodeWav(buffer);
+        const extension = hasMp3Encoder ? "mp3" : "wav";
+        const filename = `${getPresetNumber(index)}-${slugify(preset.name)}.${extension}`;
+
+        downloadBlob(blob, filename);
+        setStatus(`${filename} 저장 준비 완료`);
+      } catch (error) {
+        console.error(error);
+        setStatus("다운로드 생성 중 오류가 발생했습니다.");
+      } finally {
+        button.disabled = false;
+      }
+    }
+
+    renderCards();
+    document.documentElement.style.setProperty("--active-color", presets[0].color);
+    updateEncoderState();
+    window.addEventListener("load", updateEncoderState);
+
+    candidateGrid.addEventListener("click", (event) => {
+      const card = event.target.closest(".card");
+      if (!card) {
+        return;
+      }
+
+      const index = Number(card.dataset.index);
+      const playButton = event.target.closest(".play-card");
+      const downloadButton = event.target.closest(".download-card");
+
+      if (playButton) {
+        playPreset(index);
+      }
+
+      if (downloadButton) {
+        downloadPreset(index, downloadButton);
+      }
+    });
+  </script>
+</body>
+</html>
