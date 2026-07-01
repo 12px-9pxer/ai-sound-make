@@ -1,0 +1,1468 @@
+{
+  "schemaVersion": 1,
+  "archivedAt": "2026-07-01T05:00:17.438Z",
+  "sourceFile": "index.html",
+  "purpose": "Standalone archive of all generated Soft AI activation sound candidates before UI/GUI overhaul.",
+  "counts": {
+    "total": 52,
+    "originalUiPresets": 10,
+    "promptAddedPresets": 42
+  },
+  "presets": [
+    {
+      "name": "Warm Bloom",
+      "mood": "Warm",
+      "desc": "E4에서 B4로 열리는 기본형. 둥근 사인파와 얇은 글라스 톤이 균형 있게 섞입니다.",
+      "color": "#2f7df6",
+      "base": 329.63,
+      "upper": 493.88,
+      "chime": 987.77,
+      "pitch": "E4 to B4",
+      "layer": "Sine + Chime",
+      "tone": "sine",
+      "detune": 4,
+      "topDelay": 0.15,
+      "chimeDelay": 0.25,
+      "attack": 0.18,
+      "sustain": 0.36,
+      "duration": 1.52,
+      "filter": 860,
+      "q": 0.6,
+      "master": 0.14,
+      "chimeGain": 0.075,
+      "auraGain": 0.2,
+      "noiseGain": 0.012,
+      "shimmerGain": 0.028
+    },
+    {
+      "name": "Pearl Wake",
+      "mood": "Clean",
+      "desc": "투명한 고역을 얇게 얹은 시안. 작고 정교한 디바이스 피드백에 어울립니다.",
+      "color": "#35bde8",
+      "base": 349.23,
+      "upper": 523.25,
+      "chime": 1046.5,
+      "pitch": "F4 to C5",
+      "layer": "Bell + Air",
+      "tone": "sine",
+      "detune": 2,
+      "topDelay": 0.13,
+      "chimeDelay": 0.2,
+      "attack": 0.16,
+      "sustain": 0.32,
+      "duration": 1.36,
+      "filter": 980,
+      "q": 0.55,
+      "master": 0.125,
+      "chimeGain": 0.09,
+      "auraGain": 0.18,
+      "noiseGain": 0.009,
+      "shimmerGain": 0.036
+    },
+    {
+      "name": "Velvet Chime",
+      "mood": "Soft",
+      "desc": "로즈 피아노처럼 둥근 배음을 더한 버전. 시작점이 포근하고 압력이 낮습니다.",
+      "color": "#23b98f",
+      "base": 293.66,
+      "upper": 440,
+      "chime": 880,
+      "pitch": "D4 to A4",
+      "layer": "Rhodes + Chime",
+      "tone": "triangle",
+      "detune": 7,
+      "topDelay": 0.17,
+      "chimeDelay": 0.29,
+      "attack": 0.21,
+      "sustain": 0.4,
+      "duration": 1.68,
+      "filter": 720,
+      "q": 0.5,
+      "master": 0.15,
+      "chimeGain": 0.056,
+      "auraGain": 0.24,
+      "noiseGain": 0.014,
+      "shimmerGain": 0.024
+    },
+    {
+      "name": "Aurora Rise",
+      "mood": "Open",
+      "desc": "메이저 9도 느낌의 넓은 상승감. 공간이 밝아지며 열리는 인상이 큽니다.",
+      "color": "#805ad5",
+      "base": 261.63,
+      "upper": 587.33,
+      "chime": 1174.66,
+      "pitch": "C4 to D5",
+      "layer": "Fifth + M9",
+      "tone": "sine",
+      "detune": 5,
+      "topDelay": 0.18,
+      "chimeDelay": 0.32,
+      "attack": 0.19,
+      "sustain": 0.38,
+      "duration": 1.74,
+      "filter": 900,
+      "q": 0.62,
+      "master": 0.132,
+      "chimeGain": 0.064,
+      "auraGain": 0.28,
+      "noiseGain": 0.011,
+      "shimmerGain": 0.042
+    },
+    {
+      "name": "Mist Signal",
+      "mood": "Calm",
+      "desc": "숨결 같은 노이즈 레이어가 먼저 올라오고 낮은 톤이 조용히 따라옵니다.",
+      "color": "#6b9bff",
+      "base": 246.94,
+      "upper": 369.99,
+      "chime": 739.99,
+      "pitch": "B3 to F#4",
+      "layer": "Air + Sine",
+      "tone": "sine",
+      "detune": 3,
+      "topDelay": 0.16,
+      "chimeDelay": 0.34,
+      "attack": 0.24,
+      "sustain": 0.42,
+      "duration": 1.62,
+      "filter": 690,
+      "q": 0.45,
+      "master": 0.142,
+      "chimeGain": 0.044,
+      "auraGain": 0.23,
+      "noiseGain": 0.022,
+      "shimmerGain": 0.018
+    },
+    {
+      "name": "Halo Glass",
+      "mood": "Bright",
+      "desc": "글로켄슈필 질감을 작게 살린 시안. 밝지만 타격감은 둥글게 눌렀습니다.",
+      "color": "#f59e0b",
+      "base": 329.63,
+      "upper": 493.88,
+      "chime": 1318.51,
+      "pitch": "E4 to B4",
+      "layer": "Glass + Sine",
+      "tone": "sine",
+      "detune": 1,
+      "topDelay": 0.12,
+      "chimeDelay": 0.19,
+      "attack": 0.14,
+      "sustain": 0.3,
+      "duration": 1.44,
+      "filter": 1180,
+      "q": 0.7,
+      "master": 0.118,
+      "chimeGain": 0.105,
+      "auraGain": 0.18,
+      "noiseGain": 0.008,
+      "shimmerGain": 0.048
+    },
+    {
+      "name": "Ember Soft",
+      "mood": "Organic",
+      "desc": "중저역이 더 따뜻한 버전. 차갑지 않은 홈 디바이스에 맞는 색감입니다.",
+      "color": "#e7608b",
+      "base": 277.18,
+      "upper": 415.3,
+      "chime": 830.61,
+      "pitch": "C#4 to G#4",
+      "layer": "Warm Pad",
+      "tone": "triangle",
+      "detune": 8,
+      "topDelay": 0.2,
+      "chimeDelay": 0.35,
+      "attack": 0.23,
+      "sustain": 0.44,
+      "duration": 1.82,
+      "filter": 640,
+      "q": 0.48,
+      "master": 0.148,
+      "chimeGain": 0.04,
+      "auraGain": 0.3,
+      "noiseGain": 0.016,
+      "shimmerGain": 0.018
+    },
+    {
+      "name": "Cloud Sync",
+      "mood": "Neutral",
+      "desc": "클라우드 연결음처럼 안정적인 5도 상승. 기능성과 고급감을 함께 둡니다.",
+      "color": "#14a38b",
+      "base": 392,
+      "upper": 587.33,
+      "chime": 1174.66,
+      "pitch": "G4 to D5",
+      "layer": "Sync Pulse",
+      "tone": "sine",
+      "detune": 3,
+      "topDelay": 0.11,
+      "chimeDelay": 0.22,
+      "attack": 0.15,
+      "sustain": 0.34,
+      "duration": 1.34,
+      "filter": 920,
+      "q": 0.58,
+      "master": 0.124,
+      "chimeGain": 0.066,
+      "auraGain": 0.16,
+      "noiseGain": 0.01,
+      "shimmerGain": 0.03
+    },
+    {
+      "name": "Lunar Door",
+      "mood": "Deep",
+      "desc": "낮은 시작음과 긴 릴리즈. 화면보다 공간이 열리는 듯한 인상입니다.",
+      "color": "#64748b",
+      "base": 220,
+      "upper": 329.63,
+      "chime": 659.25,
+      "pitch": "A3 to E4",
+      "layer": "Low Aura",
+      "tone": "sine",
+      "detune": 5,
+      "topDelay": 0.19,
+      "chimeDelay": 0.37,
+      "attack": 0.26,
+      "sustain": 0.46,
+      "duration": 1.92,
+      "filter": 560,
+      "q": 0.44,
+      "master": 0.155,
+      "chimeGain": 0.035,
+      "auraGain": 0.34,
+      "noiseGain": 0.015,
+      "shimmerGain": 0.014
+    },
+    {
+      "name": "Prism Nod",
+      "mood": "Premium",
+      "desc": "원본 컨셉에 가장 가깝게 정돈한 최종 후보형. 배음과 잔향을 세련되게 다듬었습니다.",
+      "color": "#a855f7",
+      "base": 329.63,
+      "upper": 493.88,
+      "chime": 1108.73,
+      "pitch": "E4 to B4",
+      "layer": "Polished Mix",
+      "tone": "sine",
+      "detune": 4,
+      "topDelay": 0.15,
+      "chimeDelay": 0.27,
+      "attack": 0.17,
+      "sustain": 0.36,
+      "duration": 1.58,
+      "filter": 840,
+      "q": 0.56,
+      "master": 0.136,
+      "chimeGain": 0.071,
+      "auraGain": 0.26,
+      "noiseGain": 0.012,
+      "shimmerGain": 0.032
+    },
+    {
+      "name": "s01 Original E4+B4",
+      "mood": "Clean",
+      "desc": "원본 Web Audio 코드에 가까운 안정적인 2톤 AI 활성화 사운드입니다.",
+      "color": "#2f7df6",
+      "pitch": "E4 + B4",
+      "layer": "Two-tone",
+      "duration": 1.5,
+      "layers": [
+        {
+          "type": "twoTone",
+          "freqs": [
+            329.63,
+            493.88
+          ],
+          "delay": 0.12,
+          "lowpass": 800,
+          "volume": 0.15,
+          "duration": 1.5,
+          "attack": 0.15
+        }
+      ]
+    },
+    {
+      "name": "s02 Faster Soft UI",
+      "mood": "Fast",
+      "desc": "반응이 빠른 UI 피드백용으로 짧고 가볍게 정리한 E4+B4 버전입니다.",
+      "color": "#35bde8",
+      "pitch": "E4 + B4",
+      "layer": "Two-tone",
+      "duration": 1.25,
+      "layers": [
+        {
+          "type": "twoTone",
+          "freqs": [
+            329.63,
+            493.88
+          ],
+          "delay": 0.1,
+          "lowpass": 1000,
+          "volume": 0.11,
+          "duration": 1.25,
+          "attack": 0.08
+        }
+      ]
+    },
+    {
+      "name": "s03 Slow Velvet UI",
+      "mood": "Velvet",
+      "desc": "느리고 부드러운 벨벳 UI 톤. 어택과 릴리즈를 길게 가져갑니다.",
+      "color": "#23b98f",
+      "pitch": "E4 + B4",
+      "layer": "Two-tone",
+      "duration": 1.8,
+      "layers": [
+        {
+          "type": "twoTone",
+          "freqs": [
+            329.63,
+            493.88
+          ],
+          "delay": 0.18,
+          "lowpass": 620,
+          "volume": 0.09,
+          "duration": 1.8,
+          "attack": 0.24
+        }
+      ]
+    },
+    {
+      "name": "s04 Bm-ish Lower",
+      "mood": "Calm",
+      "desc": "B3와 F#4의 낮고 차분한 5도 상승감으로 더 안정적인 느낌을 줍니다.",
+      "color": "#6b9bff",
+      "pitch": "B3 + F#4",
+      "layer": "Two-tone",
+      "duration": 1.6,
+      "layers": [
+        {
+          "type": "twoTone",
+          "freqs": [
+            246.94,
+            369.99
+          ],
+          "delay": 0.14,
+          "lowpass": 700,
+          "volume": 0.12,
+          "duration": 1.6,
+          "attack": 0.18
+        }
+      ]
+    },
+    {
+      "name": "s05 C + G Neutral",
+      "mood": "Neutral",
+      "desc": "밝고 중립적인 C4+G4 완전5도 시안입니다.",
+      "color": "#14a38b",
+      "pitch": "C4 + G4",
+      "layer": "Two-tone",
+      "duration": 1.45,
+      "layers": [
+        {
+          "type": "twoTone",
+          "freqs": [
+            261.63,
+            392
+          ],
+          "delay": 0.12,
+          "lowpass": 780,
+          "volume": 0.11,
+          "duration": 1.45,
+          "attack": 0.14
+        }
+      ]
+    },
+    {
+      "name": "s06 D + A Premium",
+      "mood": "Premium",
+      "desc": "D4와 A4의 정제된 5도 진행으로 프리미엄 UI 톤에 가깝습니다.",
+      "color": "#805ad5",
+      "pitch": "D4 + A4",
+      "layer": "Two-tone",
+      "duration": 1.5,
+      "layers": [
+        {
+          "type": "twoTone",
+          "freqs": [
+            293.66,
+            440
+          ],
+          "delay": 0.12,
+          "lowpass": 740,
+          "volume": 0.11,
+          "duration": 1.5,
+          "attack": 0.14
+        }
+      ]
+    },
+    {
+      "name": "s07 Purple Open Fifth Pad",
+      "mood": "Purple",
+      "desc": "A3, E4, B4가 순차적으로 열리는 보랏빛 AI 패드 계열입니다.",
+      "color": "#8b5cf6",
+      "pitch": "A3 E4 B4",
+      "layer": "Chord pad",
+      "duration": 2.4,
+      "layers": [
+        {
+          "type": "tones",
+          "freqs": [
+            220,
+            329.63,
+            493.88
+          ],
+          "lowpass": 620,
+          "volume": 0.1,
+          "duration": 2.4,
+          "attack": 0.45,
+          "stagger": 0.16
+        }
+      ]
+    },
+    {
+      "name": "s08 Violet Suspended",
+      "mood": "Suspended",
+      "desc": "G3, D4, A4, E5의 넓은 서스펜디드 무드 패드입니다.",
+      "color": "#7c3aed",
+      "pitch": "G3 D4 A4 E5",
+      "layer": "Chord pad",
+      "duration": 2.8,
+      "layers": [
+        {
+          "type": "tones",
+          "freqs": [
+            196,
+            293.66,
+            440,
+            659.25
+          ],
+          "lowpass": 760,
+          "volume": 0.085,
+          "duration": 2.8,
+          "attack": 0.55,
+          "stagger": 0.12
+        }
+      ]
+    },
+    {
+      "name": "s09 Dark Royal Pad",
+      "mood": "Royal",
+      "desc": "Triangle 파형의 낮고 로열한 패드. 어두운 고급감을 줍니다.",
+      "color": "#5b21b6",
+      "pitch": "F3 C4 G4 C5",
+      "layer": "Triangle pad",
+      "duration": 3,
+      "layers": [
+        {
+          "type": "tones",
+          "wave": "triangle",
+          "freqs": [
+            174.61,
+            261.63,
+            392,
+            523.25
+          ],
+          "lowpass": 680,
+          "volume": 0.09,
+          "duration": 3,
+          "attack": 0.7,
+          "stagger": 0.2
+        }
+      ]
+    },
+    {
+      "name": "s10 Lydian Crystal",
+      "mood": "Crystal",
+      "desc": "리디안 계열의 살짝 열린 프리미엄 테크 감성 패드입니다.",
+      "color": "#a855f7",
+      "pitch": "G#3 D#4 A#4 D#5",
+      "layer": "Chord pad",
+      "duration": 2.7,
+      "layers": [
+        {
+          "type": "tones",
+          "freqs": [
+            207.65,
+            311.13,
+            466.16,
+            622.25
+          ],
+          "lowpass": 720,
+          "volume": 0.08,
+          "duration": 2.7,
+          "attack": 0.65,
+          "stagger": 0.1
+        }
+      ]
+    },
+    {
+      "name": "s11 Gentle Morph Pad",
+      "mood": "Morph",
+      "desc": "E minor 계열에서 F/C/G로 천천히 글라이드하는 부드러운 활성화 패드입니다.",
+      "color": "#9333ea",
+      "pitch": "E/B/F# to F/C/G",
+      "layer": "Glide chord",
+      "duration": 2.4,
+      "layers": [
+        {
+          "type": "tones",
+          "freqs": [
+            164.81,
+            246.94,
+            369.99
+          ],
+          "endFreqs": [
+            174.61,
+            261.63,
+            392
+          ],
+          "lowpass": 540,
+          "volume": 0.1,
+          "duration": 2.4,
+          "attack": 0.5,
+          "stagger": 0.08
+        }
+      ]
+    },
+    {
+      "name": "s12 Breathing AI Pad",
+      "mood": "Breathing",
+      "desc": "공기감 노이즈와 A/E/B 패드가 함께 숨 쉬듯 열리는 시안입니다.",
+      "color": "#6d28d9",
+      "pitch": "A3 E4 B4",
+      "layer": "Noise + Pad",
+      "duration": 2.6,
+      "layers": [
+        {
+          "type": "noise",
+          "highpass": 280,
+          "lowpass": 1700,
+          "volume": 0.035,
+          "duration": 2.6,
+          "attack": 0.45
+        },
+        {
+          "type": "tones",
+          "freqs": [
+            220,
+            330,
+            495
+          ],
+          "lowpass": 700,
+          "volume": 0.09,
+          "duration": 2.6,
+          "attack": 0.5,
+          "stagger": 0.12
+        }
+      ]
+    },
+    {
+      "name": "s13 Soft Glass Bell",
+      "mood": "Glass",
+      "desc": "맑지만 과하지 않은 E5+B5 소프트 글라스 벨입니다.",
+      "color": "#38bdf8",
+      "pitch": "E5 + B5",
+      "layer": "Bell",
+      "duration": 2.1,
+      "layers": [
+        {
+          "type": "bell",
+          "freqs": [
+            659.25,
+            987.77
+          ],
+          "lowpass": 2400,
+          "volume": 0.12,
+          "duration": 2.1,
+          "attack": 0.012,
+          "stagger": 0.025
+        }
+      ]
+    },
+    {
+      "name": "s14 Airy Triple Bell",
+      "mood": "Airy",
+      "desc": "C5, G5, C6로 구성된 밝고 깨끗한 트리플 벨입니다.",
+      "color": "#0ea5e9",
+      "pitch": "C5 G5 C6",
+      "layer": "Triple bell",
+      "duration": 2.4,
+      "layers": [
+        {
+          "type": "bell",
+          "freqs": [
+            523.25,
+            783.99,
+            1046.5
+          ],
+          "lowpass": 2400,
+          "volume": 0.09,
+          "duration": 2.4,
+          "attack": 0.014,
+          "stagger": 0.04
+        }
+      ]
+    },
+    {
+      "name": "s15 Violet Bell",
+      "mood": "Violet",
+      "desc": "A# 계열의 보랏빛에 가까운 몽환적인 벨 톤입니다.",
+      "color": "#8b5cf6",
+      "pitch": "A#4 F5 A#5",
+      "layer": "Bell",
+      "duration": 2.2,
+      "layers": [
+        {
+          "type": "bell",
+          "freqs": [
+            466.16,
+            698.46,
+            932.33
+          ],
+          "lowpass": 2400,
+          "volume": 0.095,
+          "duration": 2.2,
+          "attack": 0.016,
+          "stagger": 0.04
+        }
+      ]
+    },
+    {
+      "name": "s16 Reverse-ish Spark",
+      "mood": "Reverse",
+      "desc": "느린 어택으로 리버스 벨처럼 살짝 빨려 들어왔다가 부드럽게 사라집니다.",
+      "color": "#22c55e",
+      "pitch": "D5 A5 D6",
+      "layer": "Reverse bell",
+      "duration": 1.8,
+      "layers": [
+        {
+          "type": "bell",
+          "freqs": [
+            587.33,
+            880,
+            1174.66
+          ],
+          "lowpass": 2400,
+          "volume": 0.09,
+          "duration": 1.8,
+          "attack": 0.32,
+          "stagger": 0.03
+        }
+      ]
+    },
+    {
+      "name": "s17 Micro Arpeggio",
+      "mood": "Glitter",
+      "desc": "작고 빠른 UI 글리터 느낌의 E/B 마이크로 아르페지오입니다.",
+      "color": "#f59e0b",
+      "pitch": "E4 B4 E5 B5",
+      "layer": "Arpeggio",
+      "duration": 1.7,
+      "layers": [
+        {
+          "type": "arpeggio",
+          "freqs": [
+            329.63,
+            493.88,
+            659.25,
+            987.77
+          ],
+          "step": 0.085,
+          "lowpass": 1800,
+          "volume": 0.09,
+          "duration": 1.7
+        }
+      ]
+    },
+    {
+      "name": "s18 Slow Crystal Arp",
+      "mood": "Crystal",
+      "desc": "느린 크리스털 질감의 B/F# 아르페지오 시안입니다.",
+      "color": "#06b6d4",
+      "pitch": "B3 F#4 B4 F#5",
+      "layer": "Arpeggio",
+      "duration": 2,
+      "layers": [
+        {
+          "type": "arpeggio",
+          "freqs": [
+            246.94,
+            369.99,
+            493.88,
+            739.99
+          ],
+          "step": 0.13,
+          "lowpass": 1300,
+          "volume": 0.085,
+          "duration": 2
+        }
+      ]
+    },
+    {
+      "name": "s19 Soft Sub Bloom E2",
+      "mood": "Sub",
+      "desc": "E2 서브 베이스가 부드럽게 피어오르는 낮은 블룸입니다.",
+      "color": "#475569",
+      "pitch": "E2",
+      "layer": "Sub bloom",
+      "duration": 1.6,
+      "layers": [
+        {
+          "type": "sweep",
+          "freqs": [
+            82.41,
+            81.17
+          ],
+          "times": [
+            0,
+            1.6
+          ],
+          "lowpass": 260,
+          "volume": 0.16,
+          "duration": 1.6,
+          "attack": 0.18
+        }
+      ]
+    },
+    {
+      "name": "s20 Warm Sub A2",
+      "mood": "Warm Sub",
+      "desc": "A2 기반의 따뜻하고 안정적인 저역 활성화 톤입니다.",
+      "color": "#64748b",
+      "pitch": "A2",
+      "layer": "Sub bloom",
+      "duration": 1.4,
+      "layers": [
+        {
+          "type": "sweep",
+          "freqs": [
+            110,
+            108.35
+          ],
+          "times": [
+            0,
+            1.4
+          ],
+          "lowpass": 300,
+          "volume": 0.14,
+          "duration": 1.4,
+          "attack": 0.18
+        }
+      ]
+    },
+    {
+      "name": "s21 Sub + Glass",
+      "mood": "Hybrid",
+      "desc": "저역과 글라스 차임이 함께 있는 하이브리드 활성화 사운드입니다.",
+      "color": "#0891b2",
+      "pitch": "98Hz + E/B",
+      "layer": "Sub + Chime",
+      "duration": 2.2,
+      "layers": [
+        {
+          "type": "tones",
+          "freqs": [
+            98
+          ],
+          "lowpass": 260,
+          "volume": 0.11,
+          "duration": 2.2,
+          "attack": 0.2
+        },
+        {
+          "type": "bell",
+          "start": 0.3,
+          "freqs": [
+            659.25,
+            988.88
+          ],
+          "lowpass": 1800,
+          "volume": 0.07,
+          "duration": 1.7,
+          "attack": 0.018,
+          "stagger": 0.03
+        }
+      ]
+    },
+    {
+      "name": "s22 Deep Purple Entry",
+      "mood": "Deep Purple",
+      "desc": "D#2 서브와 B 계열 차임으로 어두운 보랏빛 입장감을 만듭니다.",
+      "color": "#581c87",
+      "pitch": "D#2 + B4",
+      "layer": "Sub + Chime",
+      "duration": 2.4,
+      "layers": [
+        {
+          "type": "tones",
+          "freqs": [
+            73.42
+          ],
+          "lowpass": 240,
+          "volume": 0.11,
+          "duration": 2.4,
+          "attack": 0.24
+        },
+        {
+          "type": "bell",
+          "start": 0.3,
+          "freqs": [
+            493.88,
+            740.82
+          ],
+          "lowpass": 1800,
+          "volume": 0.07,
+          "duration": 1.8,
+          "attack": 0.02,
+          "stagger": 0.035
+        }
+      ]
+    },
+    {
+      "name": "s23 Soft Impact Pad",
+      "mood": "Impact",
+      "desc": "충격음이 아닌 화면 아래에서 깊게 켜지는 소프트 임팩트 패드입니다.",
+      "color": "#334155",
+      "pitch": "C2 C3 G3 D4",
+      "layer": "Impact pad",
+      "duration": 2.6,
+      "layers": [
+        {
+          "type": "tones",
+          "wave": "triangle",
+          "freqs": [
+            65.41,
+            130.81,
+            196,
+            293.66
+          ],
+          "lowpass": 680,
+          "volume": 0.12,
+          "duration": 2.6,
+          "attack": 0.35,
+          "stagger": 0.08
+        }
+      ]
+    },
+    {
+      "name": "s24 Low Sweep Pass",
+      "mood": "Sweep",
+      "desc": "70Hz에서 122Hz를 거쳐 96Hz로 지나가는 고급 UI 저역 스윕입니다.",
+      "color": "#0f172a",
+      "pitch": "70 to 122 to 96Hz",
+      "layer": "Low sweep",
+      "duration": 1.8,
+      "layers": [
+        {
+          "type": "sweep",
+          "freqs": [
+            70,
+            122,
+            96
+          ],
+          "times": [
+            0,
+            0.8,
+            1.8
+          ],
+          "lowpass": 500,
+          "volume": 0.12,
+          "duration": 1.8,
+          "attack": 0.3
+        }
+      ]
+    },
+    {
+      "name": "s25 Soft Air Swell",
+      "mood": "Air",
+      "desc": "부드러운 바람 같은 고역 노이즈 스웰입니다.",
+      "color": "#94a3b8",
+      "pitch": "Noise",
+      "layer": "Air swell",
+      "duration": 1.8,
+      "layers": [
+        {
+          "type": "noise",
+          "highpass": 600,
+          "lowpass": 2400,
+          "volume": 0.09,
+          "duration": 1.8,
+          "attack": 0.45
+        }
+      ]
+    },
+    {
+      "name": "s26 Velvet Noise Rise",
+      "mood": "Velvet",
+      "desc": "더 낮고 벨벳 같은 노이즈 라이즈. 차분한 활성화 배경에 좋습니다.",
+      "color": "#64748b",
+      "pitch": "Noise",
+      "layer": "Noise rise",
+      "duration": 2.4,
+      "layers": [
+        {
+          "type": "noise",
+          "highpass": 300,
+          "lowpass": 1600,
+          "volume": 0.075,
+          "duration": 2.4,
+          "attack": 0.65
+        }
+      ]
+    },
+    {
+      "name": "s27 Fine Shimmer",
+      "mood": "Shimmer",
+      "desc": "얇게 흩어지는 고역 입자감의 쉬머 시안입니다.",
+      "color": "#38bdf8",
+      "pitch": "1760+Hz",
+      "layer": "Particles",
+      "duration": 2.2,
+      "layers": [
+        {
+          "type": "bell",
+          "freqs": [
+            1760,
+            2217,
+            2793,
+            3520
+          ],
+          "lowpass": 3200,
+          "volume": 0.07,
+          "duration": 2.2,
+          "attack": 0.04,
+          "stagger": 0.11
+        }
+      ]
+    },
+    {
+      "name": "s28 Slow Stardust",
+      "mood": "Stardust",
+      "desc": "천천히 사라지는 별가루 같은 고역 파티클입니다.",
+      "color": "#7dd3fc",
+      "pitch": "1320+Hz",
+      "layer": "Slow shimmer",
+      "duration": 3,
+      "layers": [
+        {
+          "type": "bell",
+          "freqs": [
+            1320,
+            1760,
+            2217,
+            2637
+          ],
+          "lowpass": 3200,
+          "volume": 0.05,
+          "duration": 3,
+          "attack": 0.08,
+          "stagger": 0.11
+        }
+      ]
+    },
+    {
+      "name": "s29 Air + Tone",
+      "mood": "Air Tone",
+      "desc": "공기감 위에 B3와 F#4 톤을 살짝 얹은 버전입니다.",
+      "color": "#06b6d4",
+      "pitch": "B3 + F#4",
+      "layer": "Noise + Tone",
+      "duration": 2.2,
+      "layers": [
+        {
+          "type": "noise",
+          "highpass": 320,
+          "lowpass": 1800,
+          "volume": 0.04,
+          "duration": 2.2,
+          "attack": 0.45
+        },
+        {
+          "type": "tones",
+          "freqs": [
+            246.94,
+            369.99
+          ],
+          "lowpass": 900,
+          "volume": 0.08,
+          "duration": 2.2,
+          "attack": 0.28,
+          "stagger": 0.12
+        }
+      ]
+    },
+    {
+      "name": "s30 Filtered Dust Ping",
+      "mood": "Dust",
+      "desc": "짧은 공기 입자 한 점이 움직임을 시작하는 밴드패스 노이즈 핑입니다.",
+      "color": "#9ca3af",
+      "pitch": "Noise 1.4k",
+      "layer": "Dust ping",
+      "duration": 1.5,
+      "layers": [
+        {
+          "type": "noise",
+          "bandpass": 1400,
+          "q": 4,
+          "volume": 0.08,
+          "duration": 1.5,
+          "attack": 0.04
+        }
+      ]
+    },
+    {
+      "name": "s31 Soft Data Scan",
+      "mood": "Scan",
+      "desc": "작은 데이터 입자가 스캔되는 듯한 빠른 미래형 UI 아르페지오입니다.",
+      "color": "#2563eb",
+      "pitch": "440 scan",
+      "layer": "Data scan",
+      "duration": 1.2,
+      "layers": [
+        {
+          "type": "arpeggio",
+          "base": 440,
+          "steps": [
+            0,
+            12,
+            7,
+            19,
+            24,
+            19,
+            12
+          ],
+          "step": 0.07,
+          "lowpass": 1800,
+          "volume": 0.075,
+          "duration": 1.2
+        }
+      ]
+    },
+    {
+      "name": "s32 Slow Data Wake",
+      "mood": "Data Wake",
+      "desc": "느리고 열린 데이터 웨이크 시퀀스. 인식 시작 신호에 가깝습니다.",
+      "color": "#3b82f6",
+      "pitch": "330 scan",
+      "layer": "Slow scan",
+      "duration": 1.5,
+      "layers": [
+        {
+          "type": "arpeggio",
+          "base": 330,
+          "steps": [
+            0,
+            7,
+            12,
+            19,
+            12,
+            7
+          ],
+          "step": 0.16,
+          "lowpass": 1800,
+          "volume": 0.07,
+          "duration": 1.5
+        }
+      ]
+    },
+    {
+      "name": "s33 Soft FM Sparkle",
+      "mood": "FM",
+      "desc": "미래적이지만 얇고 부드러운 FM 금속 반짝임입니다.",
+      "color": "#0ea5e9",
+      "pitch": "E/B/B",
+      "layer": "FM sparkle",
+      "duration": 1.6,
+      "layers": [
+        {
+          "type": "fm",
+          "freqs": [
+            329.63,
+            493.88,
+            987.77
+          ],
+          "modRatio": 2.01,
+          "modGain": 28,
+          "lowpass": 2600,
+          "volume": 0.08,
+          "duration": 1.6,
+          "attack": 0.06,
+          "stagger": 0.08
+        }
+      ]
+    },
+    {
+      "name": "s34 Low FM Bloom",
+      "mood": "Low FM",
+      "desc": "고역을 줄인 고급 FM 블룸. 더 낮고 차분하게 피어납니다.",
+      "color": "#0369a1",
+      "pitch": "E/B/B",
+      "layer": "FM bloom",
+      "duration": 2.2,
+      "layers": [
+        {
+          "type": "fm",
+          "freqs": [
+            329.63,
+            493.88,
+            987.77
+          ],
+          "modRatio": 2.01,
+          "modGain": 12,
+          "lowpass": 1300,
+          "volume": 0.06,
+          "duration": 2.2,
+          "attack": 0.28,
+          "stagger": 0.1
+        }
+      ]
+    },
+    {
+      "name": "s35 Scan + Chord",
+      "mood": "Scan Pad",
+      "desc": "느린 데이터 스캔 뒤 A/E/B 코드가 따뜻하게 올라오는 구조입니다.",
+      "color": "#2563eb",
+      "pitch": "Scan + A/E/B",
+      "layer": "Scan + Chord",
+      "duration": 1.8,
+      "layers": [
+        {
+          "type": "arpeggio",
+          "base": 330,
+          "steps": [
+            0,
+            7,
+            12,
+            19
+          ],
+          "step": 0.1,
+          "lowpass": 1800,
+          "volume": 0.035,
+          "duration": 0.9
+        },
+        {
+          "type": "tones",
+          "start": 0.14,
+          "freqs": [
+            220,
+            329.63,
+            493.88
+          ],
+          "lowpass": 740,
+          "volume": 0.08,
+          "duration": 1.66,
+          "attack": 0.32,
+          "stagger": 0.08
+        }
+      ]
+    },
+    {
+      "name": "s36 Soft Confirmation",
+      "mood": "Confirm",
+      "desc": "짧은 확인용 활성화 마무리 사인. B4와 E5가 빠르게 응답합니다.",
+      "color": "#22c55e",
+      "pitch": "B4 + E5",
+      "layer": "Confirmation",
+      "duration": 1,
+      "layers": [
+        {
+          "type": "twoTone",
+          "freqs": [
+            493.88,
+            659.25
+          ],
+          "delay": 0.08,
+          "lowpass": 1200,
+          "volume": 0.09,
+          "duration": 1,
+          "attack": 0.06
+        }
+      ]
+    },
+    {
+      "name": "s37 Wake Bloom",
+      "mood": "Cinematic",
+      "desc": "공기감, E2 서브, E/B/F# 패드가 순서대로 켜지는 시네마틱 웨이크입니다.",
+      "color": "#475569",
+      "pitch": "Noise + E2 + Pad",
+      "layer": "Sequence",
+      "duration": 3.2,
+      "layers": [
+        {
+          "type": "noise",
+          "highpass": 300,
+          "lowpass": 1800,
+          "volume": 0.045,
+          "duration": 2.6,
+          "attack": 0.7
+        },
+        {
+          "type": "tones",
+          "start": 0.26,
+          "freqs": [
+            82.41
+          ],
+          "lowpass": 260,
+          "volume": 0.1,
+          "duration": 1.8,
+          "attack": 0.18
+        },
+        {
+          "type": "tones",
+          "start": 0.52,
+          "freqs": [
+            164.81,
+            246.94,
+            369.99
+          ],
+          "lowpass": 620,
+          "volume": 0.08,
+          "duration": 2.4,
+          "attack": 0.48,
+          "stagger": 0.14
+        }
+      ]
+    },
+    {
+      "name": "s38 Luxury Reveal",
+      "mood": "Luxury",
+      "desc": "서브, 글라스, 로열 패드가 차례로 등장하는 럭셔리 리빌입니다.",
+      "color": "#7c3aed",
+      "pitch": "Sub + Bell + Pad",
+      "layer": "Sequence",
+      "duration": 3.4,
+      "layers": [
+        {
+          "type": "tones",
+          "freqs": [
+            98
+          ],
+          "lowpass": 280,
+          "volume": 0.095,
+          "duration": 2.4,
+          "attack": 0.28
+        },
+        {
+          "type": "bell",
+          "start": 0.36,
+          "freqs": [
+            659.25,
+            987.77
+          ],
+          "lowpass": 2400,
+          "volume": 0.07,
+          "duration": 2,
+          "attack": 0.018,
+          "stagger": 0.04
+        },
+        {
+          "type": "tones",
+          "start": 0.58,
+          "freqs": [
+            196,
+            293.66,
+            440,
+            659.25
+          ],
+          "lowpass": 720,
+          "volume": 0.07,
+          "duration": 2.8,
+          "attack": 0.52,
+          "stagger": 0.12
+        }
+      ]
+    },
+    {
+      "name": "s39 Minimal AI Entrance",
+      "mood": "Minimal",
+      "desc": "짧은 노이즈 핑 뒤 E4+B4가 들어오는 미니멀 AI 입장음입니다.",
+      "color": "#0f766e",
+      "pitch": "Noise + E/B",
+      "layer": "Sequence",
+      "duration": 1.8,
+      "layers": [
+        {
+          "type": "noise",
+          "bandpass": 1400,
+          "q": 4,
+          "volume": 0.045,
+          "duration": 1,
+          "attack": 0.03
+        },
+        {
+          "type": "twoTone",
+          "start": 0.12,
+          "freqs": [
+            329.63,
+            493.88
+          ],
+          "delay": 0.13,
+          "lowpass": 750,
+          "volume": 0.07,
+          "duration": 1.2,
+          "attack": 0.12
+        }
+      ]
+    },
+    {
+      "name": "s40 Long Ambient Boot",
+      "mood": "Ambient",
+      "desc": "3초 이상 이어지는 부드러운 애니메이션용 앰비언트 부트 사운드입니다.",
+      "color": "#6d28d9",
+      "pitch": "Glide + Shimmer",
+      "layer": "Sequence",
+      "duration": 3.6,
+      "layers": [
+        {
+          "type": "noise",
+          "highpass": 240,
+          "lowpass": 1600,
+          "volume": 0.055,
+          "duration": 3.2,
+          "attack": 0.8
+        },
+        {
+          "type": "tones",
+          "start": 0.18,
+          "freqs": [
+            164.81,
+            246.94,
+            369.99
+          ],
+          "endFreqs": [
+            174.61,
+            261.63,
+            392
+          ],
+          "lowpass": 560,
+          "volume": 0.08,
+          "duration": 3,
+          "attack": 0.58,
+          "stagger": 0.1
+        },
+        {
+          "type": "bell",
+          "start": 0.7,
+          "freqs": [
+            1320,
+            1760,
+            2217,
+            2637
+          ],
+          "lowpass": 3200,
+          "volume": 0.04,
+          "duration": 2.6,
+          "attack": 0.1,
+          "stagger": 0.11
+        }
+      ]
+    },
+    {
+      "name": "s41 Cute but Premium",
+      "mood": "Cute",
+      "desc": "작은 아르페지오와 패드가 결합된 귀엽지만 유치하지 않은 프리미엄 캐릭터 톤입니다.",
+      "color": "#ec4899",
+      "pitch": "Arp + A/E/B",
+      "layer": "Sequence",
+      "duration": 2.4,
+      "layers": [
+        {
+          "type": "arpeggio",
+          "freqs": [
+            329.63,
+            493.88,
+            659.25
+          ],
+          "step": 0.1,
+          "lowpass": 1600,
+          "volume": 0.055,
+          "duration": 1.1
+        },
+        {
+          "type": "tones",
+          "start": 0.26,
+          "freqs": [
+            220,
+            329.63,
+            493.88
+          ],
+          "lowpass": 760,
+          "volume": 0.06,
+          "duration": 2.1,
+          "attack": 0.36,
+          "stagger": 0.1
+        }
+      ]
+    },
+    {
+      "name": "s42 Dark Tech Bloom",
+      "mood": "Dark Tech",
+      "desc": "저역 스윕, 노이즈+코드, 낮은 FM 스파클이 겹치는 다크 테크 블룸입니다.",
+      "color": "#111827",
+      "pitch": "Sweep + Chord + FM",
+      "layer": "Sequence",
+      "duration": 3,
+      "layers": [
+        {
+          "type": "sweep",
+          "freqs": [
+            70,
+            122,
+            96
+          ],
+          "times": [
+            0,
+            0.9,
+            2
+          ],
+          "lowpass": 500,
+          "volume": 0.09,
+          "duration": 2,
+          "attack": 0.3
+        },
+        {
+          "type": "noise",
+          "start": 0.22,
+          "highpass": 280,
+          "lowpass": 1600,
+          "volume": 0.03,
+          "duration": 2.4,
+          "attack": 0.52
+        },
+        {
+          "type": "tones",
+          "start": 0.22,
+          "freqs": [
+            207.65,
+            311.13,
+            466.16
+          ],
+          "lowpass": 620,
+          "volume": 0.065,
+          "duration": 2.5,
+          "attack": 0.42,
+          "stagger": 0.1
+        },
+        {
+          "type": "fm",
+          "start": 0.68,
+          "freqs": [
+            329.63,
+            493.88,
+            987.77
+          ],
+          "modRatio": 2.01,
+          "modGain": 12,
+          "lowpass": 1300,
+          "volume": 0.04,
+          "duration": 1.9,
+          "attack": 0.18,
+          "stagger": 0.08
+        }
+      ]
+    }
+  ]
+}
